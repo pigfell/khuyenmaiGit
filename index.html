@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ROYAL CASINO - MEGA CHIPS EDITION</title>
+    <title>VIP ROYAL CASINO - CHỮ MỞ BÁT FIX</title>
     <style>
         :root {
             --gold: #ffcc00; --gold-dark: #b8860b; --tai: #ffd84d; --xiu: #4fc3ff; --bg: #050505; --win: #2ecc71;
@@ -19,14 +19,13 @@
             overflow: hidden;
         }
 
-        /* XOAY MÀN HÌNH */
+        /* XOAY MÀN HÌNH WARNING */
         #orientation-warning {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 99999; flex-direction: column; justify-content: center; align-items: center;
         }
         @media screen and (max-width: 900px) and (orientation: portrait) { #orientation-warning { display: flex; } }
 
-        /* LAYOUT 3 CỘT */
         .container {
             display: grid; grid-template-columns: 20vw 52vw 22vw; gap: 1vw;
             width: 98vw; height: 95vh; max-width: 1600px;
@@ -38,26 +37,25 @@
             box-shadow: 0 0 40px rgba(0,0,0,1);
         }
 
-        /* CHAT ẢO */
+        /* CHAT BOX */
         .chat-box { flex: 1; overflow-y: auto; margin-top: 10px; scroll-behavior: smooth; }
-        .chat-msg { margin-bottom: 8px; font-size: 13px; color: #eee; line-height: 1.4; animation: slideIn 0.3s; }
+        .chat-msg { margin-bottom: 8px; font-size: 13px; color: #eee; }
         .chat-user { font-weight: bold; margin-right: 5px; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* JACKPOT */
+        /* HEADER INFO */
+        .session-info { font-size: 14px; color: var(--gold); font-weight: bold; margin-bottom: 5px; text-align: left; }
         .jp-box {
             background: linear-gradient(180deg, #900, #300); border: 2px solid var(--gold);
-            border-radius: 20px; padding: 10px; text-align: center; margin-bottom: 10px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            border-radius: 20px; padding: 8px; text-align: center; margin-bottom: 8px;
         }
-        .jp-value { font-size: clamp(22px, 4.5vh, 40px); color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 15px #f00; }
+        .jp-value { font-size: clamp(20px, 4vh, 38px); color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 15px #f00; }
         
-        #timer { font-size: clamp(35px, 6vh, 55px); font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--gold); text-align: center; }
+        #timer { font-size: clamp(35px, 6vh, 50px); font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--gold); text-align: center; }
 
-        /* BÁT ĐĨA */
+        /* BÁT ĐĨA & CHỮ MỞ BÁT */
         .bowl-wrap {
-            width: clamp(160px, 35vh, 230px); height: clamp(160px, 35vh, 230px);
-            margin: 10px auto; background: #000; border-radius: 50%;
+            width: clamp(160px, 32vh, 230px); height: clamp(160px, 32vh, 230px);
+            margin: 5px auto; background: #000; border-radius: 50%;
             border: 10px solid #222; position: relative;
             display: flex; justify-content: center; align-items: center; box-shadow: 0 0 35px var(--gold);
         }
@@ -67,58 +65,59 @@
             display: flex; justify-content: center; align-items: center; border: 1px solid #333;
         }
         .lid.open { transform: translate(140%, -100%) rotate(40deg); opacity: 0; pointer-events: none; }
+        
+        /* CHỮ MỞ BÁT RIÊNG BIỆT */
+        #open-text {
+            display: none; position: absolute; z-index: 11;
+            font-size: 24px; font-weight: 900; color: #fff;
+            text-shadow: 0 0 10px gold, 0 0 20px orange;
+            pointer-events: none; text-align: center;
+            animation: pulseText 1s infinite;
+            border: 2px solid var(--gold); padding: 5px 15px; border-radius: 30px; background: rgba(0,0,0,0.6);
+        }
+        @keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.8; } }
+
         .shake-anim { animation: wiggle 0.1s infinite; }
-        @keyframes wiggle { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } }
+        @keyframes wiggle { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-2px, -2px); } }
 
         .dice { width: 50px; height: 50px; background: #fff; border-radius: 10px; color: #000; font-size: 30px; font-weight: bold; display: flex; justify-content: center; align-items: center; box-shadow: 3px 3px 0 #999; margin: 0 5px; }
 
         /* BÀN CƯỢC */
-        .bet-area { display: flex; gap: 15px; margin-top: 10px; }
-        .bet-box { flex: 1; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px; border: 2px solid #333; cursor: pointer; text-align: center; position: relative; overflow: hidden;}
+        .bet-area { display: flex; gap: 15px; margin-top: 5px; }
+        .bet-box { flex: 1; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 20px; border: 2px solid #333; cursor: pointer; text-align: center; }
         .bet-box.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.1); }
-        .bet-box.selected::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle, rgba(255,204,0,0.2) 0%, transparent 70%); }
-        .bet-amt-text { color: #fff; font-size: 20px; font-weight: bold; text-shadow: 0 0 12px var(--gold); }
+        .bet-amt-text { color: #fff !important; font-size: 22px; font-weight: bold; text-shadow: 0 0 10px var(--gold); }
 
-        /* --- DÀN NÚT CHIP SIÊU ĐẸP --- */
-        .chip-row { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
-        
+        /* CHIPS */
+        .chip-row { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
         .chip {
-            width: 65px; height: 65px; border-radius: 50%; border: 4px dashed rgba(255,255,255,0.3);
-            cursor: pointer; font-weight: 900; font-size: 14px; position: relative;
-            display: flex; justify-content: center; align-items: center;
-            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 6px 0 rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.4);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            width: 60px; height: 60px; border-radius: 50%; border: 4px dashed rgba(255,255,255,0.3);
+            cursor: pointer; font-weight: 900; font-size: 13px; display: flex; justify-content: center; align-items: center;
+            transition: 0.2s; box-shadow: 0 5px 0 rgba(0,0,0,0.5);
         }
-
-        .chip:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.5); }
-        .chip:hover { transform: scale(1.1) translateY(-5px); filter: brightness(1.2); }
-
-        .chip-10m { background: radial-gradient(circle, var(--chip-10m), #004d7c); border-color: #74b9ff; color: #fff; box-shadow: 0 6px 0 #004d7c, 0 0 15px rgba(0, 168, 255, 0.5); }
-        .chip-50m { background: radial-gradient(circle, var(--chip-50m), #4834d4); border-color: #a29bfe; color: #fff; box-shadow: 0 6px 0 #4834d4, 0 0 15px rgba(156, 136, 255, 0.5); }
-        .chip-100m { background: radial-gradient(circle, var(--chip-100m), #800); border-color: #ff7675; color: #fff; box-shadow: 0 6px 0 #800, 0 0 15px rgba(232, 65, 24, 0.5); }
-        .chip-all { background: radial-gradient(circle, var(--chip-all), #b8860b); border-color: #ffeaa7; color: #000; text-shadow: none; box-shadow: 0 6px 0 #b8860b, 0 0 20px rgba(251, 197, 49, 0.6); }
-        .chip-clear { background: #333; border-color: #666; color: #888; width: 50px; height: 50px; font-size: 11px; margin-left: 5px; }
-
-        /* SIDE PANEL */
-        #balance { color: var(--win); font-size: 22px; font-weight: bold; text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); }
-        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 8px; font-size: 14px; box-shadow: 0 4px 0 #8a3a00; }
-        .btn-dep.disabled { background: #444; color: #888; cursor: not-allowed; box-shadow: none; }
+        .chip:active { transform: translateY(3px); }
+        .chip-10m { background: radial-gradient(circle, var(--chip-10m), #004d7c); color: #fff; }
+        .chip-50m { background: radial-gradient(circle, var(--chip-50m), #4834d4); color: #fff; }
+        .chip-100m { background: radial-gradient(circle, var(--chip-100m), #800); color: #fff; }
+        .chip-all { background: radial-gradient(circle, var(--chip-all), #b8860b); color: #000; }
 
         /* ROADMAP */
         .roadmap-container {
-            margin-top: 15px; background: #000; border: 1.5px solid var(--gold);
-            border-radius: 12px; padding: 5px; overflow: hidden;
-            background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 18px 18px; height: 115px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 2px;
+            margin-top: 10px; background: #000; border: 1.5px solid var(--gold);
+            border-radius: 12px; padding: 5px; height: 110px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 2px;
+            background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 18px 18px;
         }
-        .dot { width: 16px; height: 16px; border-radius: 50%; position: relative; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .dot.tai { background: radial-gradient(circle at 30% 30%, #fff, var(--tai), #b8860b); box-shadow: 0 0 10px var(--tai); }
-        .dot.xiu { background: radial-gradient(circle at 30% 30%, #fff, var(--xiu), #1e90ff); box-shadow: 0 0 10px var(--xiu); }
-        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+        .dot { width: 16px; height: 16px; border-radius: 50%; }
+        .dot.tai { background: radial-gradient(circle at 30% 30%, #fff, var(--tai), #b8860b); box-shadow: 0 0 8px var(--tai); }
+        .dot.xiu { background: radial-gradient(circle at 30% 30%, #fff, var(--xiu), #1e90ff); box-shadow: 0 0 8px var(--xiu); }
 
-        #audio-starter { position: fixed; top: 10px; left: 10px; z-index: 2000; padding: 8px 15px; background: var(--gold); border: none; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000;}
+        /* BANKING */
+        #balance { color: var(--win); font-size: 24px; font-weight: bold; text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); }
+        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 5px; }
+        .btn-dep.disabled { background: #444; color: #888; cursor: not-allowed; }
+
+        #audio-starter { position: fixed; top: 10px; left: 10px; z-index: 2000; padding: 8px 15px; background: var(--gold); border: none; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; box-shadow: 0 0 10px gold;}
     </style>
 </head>
 <body>
@@ -142,15 +141,17 @@
     </div>
 
     <div class="main-game glass-panel">
+        <div class="session-info" id="session-id">PHIÊN: #000001</div>
         <div class="jp-box">
-            <div style="font-size: 10px; color: var(--gold-light); margin-bottom: 2px; letter-spacing: 2px;">🐲 QUỸ HŨ RỒNG 🐲</div>
             <div class="jp-value" id="jp-val">100,000,000</div>
+            <div style="font-size: 10px; color: gold; letter-spacing: 2px;">🐲 QUỸ HŨ RỒNG THIÊNG 🐲</div>
         </div>
 
-        <div id="timer">20</div>
-        <div id="status" style="text-align:center; color:var(--gold); font-size: 12px; margin-bottom: 5px; font-weight:bold;">ĐANG ĐẶT CƯỢC</div>
+        <div id="timer">--</div>
+        <div id="status" style="font-size: 12px; font-weight:bold; color:var(--gold); text-align:center;">ĐANG ĐỒNG BỘ...</div>
         
         <div class="bowl-wrap">
+            <div id="open-text">MỞ BÁT</div>
             <div class="lid" id="lid" onclick="game.openLid()"></div>
             <div id="d1" class="dice">?</div>
             <div id="d2" class="dice">?</div>
@@ -172,8 +173,8 @@
             <div class="chip chip-10m" onclick="game.addMoney(10000000)">10M</div>
             <div class="chip chip-50m" onclick="game.addMoney(50000000)">50M</div>
             <div class="chip chip-100m" onclick="game.addMoney(100000000)">100M</div>
-            <div class="chip chip-all" onclick="game.allIn()">ALL IN</div>
-            <div class="chip chip-clear" onclick="game.clearBet()">XÓA</div>
+            <div class="chip chip-all" onclick="game.allIn()">ALL</div>
+            <div class="chip" style="background:#333; width:45px; height:45px; font-size:10px; border:none;" onclick="game.clearBet()">XÓA</div>
         </div>
     </div>
 
@@ -181,163 +182,172 @@
         <div style="margin-bottom: 10px;">
             <h3>🏦 NGÂN HÀNG</h3>
             <b id="balance">1,000,000,000</b>
-            <div style="margin-top: 10px;">
-                <input type="number" id="inp-dep" placeholder="Nạp tối đa 10 tỷ" style="width: 100%; padding: 10px; background:#000; border:1px solid #444; color:#fff; border-radius:8px; margin-bottom: 5px; text-align: center; font-weight: bold;">
-                <button id="btn-dep" class="btn-dep" onclick="game.deposit()">NẠP TIỀN</button>
-            </div>
+            <input type="number" id="inp-dep" placeholder="Nạp tối đa 10 tỷ" style="width: 100%; padding: 8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px; margin-top:5px; text-align: center;">
+            <button id="btn-dep" class="btn-dep" onclick="game.deposit()">NẠP TIỀN</button>
         </div>
         <div style="flex: 1; display: flex; flex-direction: column;">
-            <h3>📊 SOI CẦU (ROADMAP)</h3>
+            <h3>📊 SOI CẦU (SHARED)</h3>
             <div class="roadmap-container" id="hist-dots"></div>
         </div>
     </div>
 </div>
 
-<canvas id="fw-canvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:9999;"></canvas>
-
 <script>
-class CasinoGame {
+class InfiniteCasino {
     constructor() {
-        this.bal = 1000000000;
-        this.jp = 100000000;
-        this.time = 20;
-        this.state = 'BET'; 
+        this.balance = 1000000000;
+        this.jackpot = 500000000;
+        this.state = 'IDLE'; 
         this.side = 'TAI';
-        this.bT = 0; this.bX = 0;
-        this.h = [];
+        this.betT = 0; this.betX = 0;
         this.isMuted = true;
-        this.streak = 0; this.lastRes = null;
-
+        this.roundDuration = 40; 
+        
         this.init();
         this.startChat();
     }
 
-    init() {
-        this.updateUI();
-        setInterval(() => {
-            if(this.state === 'BET') {
-                this.time--;
-                if(this.time <= 0) {
-                    this.state = 'WAIT';
-                    this.lockAndShake();
-                }
-            }
-            document.getElementById('timer').innerText = this.state === 'BET' ? this.time : "!";
-        }, 1000);
+    getSyncedResult(sessionNum) {
+        const s = Math.sin(sessionNum) * 10000;
+        const rand = s - Math.floor(s);
+        const isJp = rand < 0.01;
+        let d = [];
+        if(isJp) {
+            const val = Math.floor(rand * 6) + 1;
+            d = [val, val, val];
+        } else {
+            d = [Math.floor((rand * 13) % 6) + 1, Math.floor((rand * 131) % 6) + 1, Math.floor((rand * 1313) % 6) + 1];
+            if(d[0]===d[1] && d[1]===d[2]) d[0] = d[0]===6?1:d[0]+1;
+        }
+        const sum = d[0]+d[1]+d[2];
+        return { dice: d, sum, win: sum >= 11 ? 'TAI' : 'XIU', isJp };
     }
 
-    enableSound() { this.isMuted = false; document.getElementById('m-bg').volume = 0.2; document.getElementById('m-bg').play(); document.getElementById('audio-starter').style.display = 'none'; }
-    playSfx(id, loop = false) { if(!this.isMuted) { const el = document.getElementById(id); el.currentTime = 0; el.loop = loop; el.play(); } }
-    stopSfx(id) { document.getElementById(id).pause(); document.getElementById(id).currentTime = 0; }
+    init() {
+        setInterval(() => this.mainLoop(), 1000);
+        this.updateUI();
+    }
 
-    lockAndShake() {
+    mainLoop() {
+        const now = Math.floor(Date.now() / 1000);
+        const cyclePos = now % this.roundDuration; 
+        const currentSession = Math.floor(now / this.roundDuration); 
+        
+        document.getElementById('session-id').innerText = "PHIÊN: #" + currentSession.toString().padStart(6, '0');
+
+        if (cyclePos < 25) {
+            if (this.state !== 'BETTING') { this.resetRound(); this.state = 'BETTING'; }
+            this.timer = 25 - cyclePos;
+            document.getElementById('status').innerText = "ĐANG ĐẶT CƯỢC";
+            document.getElementById('timer').innerText = this.timer;
+        } 
+        else if (cyclePos >= 25 && cyclePos < 35) {
+            if (this.state === 'BETTING') {
+                this.state = 'WAIT_OPEN';
+                this.lockAndShake(currentSession);
+            }
+            // TỰ ĐỘNG MỞ NẾU QUÁ GIỜ
+            if (cyclePos === 34 && !document.getElementById('lid').classList.contains('open')) {
+                this.openLid();
+            }
+            document.getElementById('timer').innerText = "!";
+        }
+        else {
+            this.state = 'RESULT';
+            document.getElementById('timer').innerText = "RESET";
+        }
+        this.syncHistory(currentSession);
+    }
+
+    syncHistory(currentSession) {
+        let h = [];
+        for(let i = 1; i <= 24; i++) h.push(this.getSyncedResult(currentSession - i).win);
+        document.getElementById('hist-dots').innerHTML = h.reverse().map(i => `<div class="dot ${i.toLowerCase()}"></div>`).join('');
+    }
+
+    lockAndShake(session) {
         document.getElementById('status').innerText = "HẾT GIỜ! MỜI MỞ BÁT";
         document.getElementById('lid').classList.add('shake-anim');
+        document.getElementById('open-text').style.display = 'block'; // HIỆN CHỮ MỞ BÁT
         this.playSfx('s-dice', true);
-        this.res = this.genResult();
+        this.currentRes = this.getSyncedResult(session);
     }
-
-    selectSide(s) { if(this.state === 'BET') { this.side = s; this.updateUI(); } }
-
-    addMoney(m) {
-        if(this.state !== 'BET' || this.bal < m) return;
-        this.playSfx('s-chip');
-        if(this.side === 'TAI') this.bT += m; else this.bX += m;
-        this.bal -= m; this.jp += m * 0.001; this.updateUI();
-    }
-
-    allIn() { this.addMoney(this.bal); }
-    clearBet() { if(this.state === 'BET') { this.bal += (this.bT + this.bX); this.bT = 0; this.bX = 0; this.updateUI(); } }
 
     openLid() {
-        if(this.state !== 'WAIT') return;
+        if(this.state !== 'WAIT_OPEN') return;
         this.stopSfx('s-dice');
+        document.getElementById('open-text').style.display = 'none'; // ẨN CHỮ KHI MỞ
         document.getElementById('lid').classList.remove('shake-anim');
         document.getElementById('lid').classList.add('open');
-        this.state = 'ANIM';
+        this.state = 'ANIMATING';
         let c = 0;
         let shuffle = setInterval(() => {
             document.getElementById('d1').innerText = Math.floor(Math.random()*6)+1;
             document.getElementById('d2').innerText = Math.floor(Math.random()*6)+1;
             document.getElementById('d3').innerText = Math.floor(Math.random()*6)+1;
-            if(++c > 15) { clearInterval(shuffle); this.finalize(); }
+            if(++c > 15) { clearInterval(shuffle); this.calculate(); }
         }, 80);
     }
 
-    genResult() {
-        let isJp = Math.random() < 0.01;
-        let d = [1,1,1];
-        if(isJp) { let n = Math.floor(Math.random()*6)+1; d = [n,n,n]; }
-        else {
-            let win = Math.random() < 0.5 ? 'TAI' : 'XIU';
-            let target = win === 'TAI' ? (Math.floor(Math.random()*7)+11) : (Math.floor(Math.random()*8)+3);
-            let cur = 3;
-            while(cur < target) { let i = Math.floor(Math.random()*3); if(d[i]<6){d[i]++; cur++;} }
-            if(d[0]===d[1] && d[1]===d[2]) d[0] = (d[0]===6)?5:d[0]+1;
-        }
-        let sum = d[0]+d[1]+d[2];
-        return { dice: d, sum, win: sum >= 11 ? 'TAI' : 'XIU', isJp };
-    }
-
-    finalize() {
-        const r = this.res;
+    calculate() {
+        const r = this.currentRes;
         document.getElementById('d1').innerText = r.dice[0];
         document.getElementById('d2').innerText = r.dice[1];
         document.getElementById('d3').innerText = r.dice[2];
-
-        if(r.isJp) {
-            this.playSfx('s-jp');
-            this.bal += this.jp; this.jp = 100000000;
-        } else {
-            let win = (r.win === 'TAI') ? this.bT * 2 : this.bX * 2;
-            if(win > 0) { this.bal += win; this.playSfx('s-win'); }
+        if(r.isJp) { this.playSfx('s-jp'); this.balance += this.jackpot; } 
+        else {
+            let win = (r.win === 'TAI') ? this.betT * 2 : this.betX * 2;
+            if(win > 0) { this.balance += win; this.playSfx('s-win'); }
         }
-
-        if(r.win === this.lastRes) this.streak++; else { this.streak = 1; this.lastRes = r.win; }
-        this.h.push(r.win);
         this.updateUI();
         document.getElementById('status').innerText = `KẾT QUẢ: ${r.win} (${r.sum})`;
-        this.state = 'RESULT';
-        setTimeout(() => this.reset(), 5000);
     }
 
-    reset() {
-        this.state = 'BET'; this.time = 20; this.bT = 0; this.bX = 0;
-        document.getElementById('lid').classList.remove('open');
-        document.getElementById('status').innerText = "ĐANG CHỜ ĐẶT CƯỢC";
+    resetRound() {
+        this.betT = 0; this.betX = 0;
+        document.getElementById('open-text').style.display = 'none';
+        document.getElementById('lid').classList.remove('open', 'shake-anim');
         document.getElementById('d1').innerText = "?"; document.getElementById('d2').innerText = "?"; document.getElementById('d3').innerText = "?";
         this.updateUI();
     }
 
     updateUI() {
-        document.getElementById('balance').innerText = this.bal.toLocaleString();
-        document.getElementById('jp-val').innerText = Math.floor(this.jp).toLocaleString();
-        document.getElementById('val-tai').innerText = this.bT.toLocaleString();
-        document.getElementById('val-xiu').innerText = this.bX.toLocaleString();
+        document.getElementById('balance').innerText = this.balance.toLocaleString();
+        document.getElementById('val-tai').innerText = this.betT.toLocaleString();
+        document.getElementById('val-xiu').innerText = this.betX.toLocaleString();
         document.getElementById('box-tai').className = this.side === 'TAI' ? 'bet-box selected' : 'bet-box';
         document.getElementById('box-xiu').className = this.side === 'XIU' ? 'bet-box selected' : 'bet-box';
-        document.getElementById('hist-dots').innerHTML = this.h.slice(-30).map(i => `<div class="dot ${i.toLowerCase()}"></div>`).join('');
-        
         const btn = document.getElementById('btn-dep');
-        if(this.bal > 0) { btn.classList.add('disabled'); btn.innerText = "CÒN TIỀN..."; }
+        if(this.balance > 0) { btn.classList.add('disabled'); btn.innerText = "CÒN TIỀN..."; }
         else { btn.classList.remove('disabled'); btn.innerText = "NẠP TIỀN"; }
     }
 
     deposit() {
-        if(this.bal > 0) return;
+        if(this.balance > 0) return;
         let a = parseInt(document.getElementById('inp-dep').value);
-        if(a > 0) { this.bal += Math.min(a, 10000000000); this.playSfx('s-chip'); document.getElementById('inp-dep').value = ""; this.updateUI(); }
+        if(a > 0) { this.balance += Math.min(a, 10000000000); this.playSfx('s-chip'); document.getElementById('inp-dep').value = ""; this.updateUI(); }
     }
 
+    addMoney(m) {
+        if(this.state !== 'BETTING' || this.balance < m) return;
+        this.playSfx('s-chip');
+        if(this.side === 'TAI') this.betT += m; else this.betX += m;
+        this.balance -= m; this.updateUI();
+    }
+    allIn() { this.addMoney(this.balance); }
+    clearBet() { if(this.state === 'BETTING') { this.balance += (this.betT + this.betX); this.betT = 0; this.betX = 0; this.updateUI(); } }
+    selectSide(s) { if(this.state === 'BETTING') { this.side = s; this.updateUI(); } }
+    enableSound() { this.isMuted = false; document.getElementById('m-bg').volume = 0.2; document.getElementById('m-bg').play(); document.getElementById('audio-starter').style.display = 'none'; }
+    playSfx(id, loop = false) { if(!this.isMuted) { const el = document.getElementById(id); el.currentTime = 0; el.loop = loop; el.play(); } }
+    stopSfx(id) { document.getElementById(id).pause(); document.getElementById(id).currentTime = 0; }
+
     startChat() {
-        const msgs = ["Bịp vcl admin", "Lại xỉu, vãi cầu", "Húp 200 củ thơm", "Cầu bệt đẹp vcl", "Cháy túi r admin ơi", "Tài đi anh em", "Admin bịp vãi l", "Nổ hũ cái coi", "Vcl cầu gì đây"];
-        const prefixes = ["Vua", "Thánh", "Trùm", "Bé", "Cô", "Chú", "ĐạiGia"];
-        const names = ["Tài", "Xỉu", "Bịp", "Húp", "Lô", "Đề"];
+        const msgs = ["Bịp vcl admin", "Lại xỉu, vãi cầu", "Húp 200 củ thơm", "Cầu bệt đẹp vcl", "Cháy túi r admin", "Tài đi anh em", "Admin bịp vãi l", "Nổ hũ cái coi", "Vcl cầu gì đây"];
+        const users = ["HoàngKa", "Trùm_TX", "BéHeo", "ẨnDanh", "ĐạiGia"];
         setInterval(() => {
             const div = document.createElement('div');
             div.className = 'chat-msg';
-            const user = prefixes[Math.floor(Math.random()*prefixes.length)] + names[Math.floor(Math.random()*names.length)] + Math.floor(Math.random()*999);
-            div.innerHTML = `<span class="chat-user" style="color:var(--gold)">${user}:</span> ${msgs[Math.floor(Math.random()*msgs.length)]}`;
+            div.innerHTML = `<span class="chat-user" style="color:var(--gold)">${users[Math.floor(Math.random()*users.length)]}${Math.floor(Math.random()*99)}:</span> ${msgs[Math.floor(Math.random()*msgs.length)]}`;
             const box = document.getElementById('chat-box');
             box.appendChild(div);
             if(box.children.length > 40) box.removeChild(box.firstChild);
@@ -345,7 +355,7 @@ class CasinoGame {
         }, 2200);
     }
 }
-const game = new CasinoGame();
+const game = new InfiniteCasino();
 </script>
 </body>
 </html>
