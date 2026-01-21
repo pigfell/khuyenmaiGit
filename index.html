@@ -2,104 +2,136 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>VIP ROYAL CASINO - PHIÊN BẢN ĐỒ ÁN 500+ LINES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP ROYAL CASINO - PROFESSIONAL EDITION</title>
     <style>
         :root {
             --gold: #ffcc00; --gold-dark: #b8860b; --royal-red: #8e0000;
             --tai: #ffd84d; --xiu: #4fc3ff; --bg: #050505;
         }
 
+        /* RESET & BASE */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             margin: 0; background-color: var(--bg); color: #fff;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
             background-image: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
-            overflow: hidden;
         }
 
-        #fw-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+        /* CẢNH BÁO XOAY MÀN HÌNH (MOBILE PORTRAIT) */
+        #orientation-warning {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 99999; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+        @media screen and (max-width: 900px) and (orientation: portrait) {
+            #orientation-warning { display: flex; }
+        }
 
+        .phone-icon {
+            width: 50px; height: 80px; border: 3px solid var(--gold);
+            border-radius: 10px; animation: rotatePhone 2s infinite; margin-bottom: 20px;
+        }
+        @keyframes rotatePhone { 0% { transform: rotate(0deg); } 50% { transform: rotate(-90deg); } 100% { transform: rotate(-90deg); } }
+
+        /* LAYOUT CHÍNH */
         .container {
-            display: grid; grid-template-columns: 320px 550px 320px; gap: 20px;
-            max-width: 1300px; width: 95%; position: relative;
+            display: grid; grid-template-columns: 22vw 45vw 22vw; gap: 1.5vw;
+            width: 98vw; max-width: 1400px; height: 90vh; max-height: 800px;
+            padding: 10px;
         }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 204, 0, 0.3); border-radius: 25px; padding: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); text-align: center;
-            transition: transform 0.3s;
+            border: 2px solid rgba(255, 204, 0, 0.3); border-radius: 20px;
+            padding: 1.5vh; display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        #audio-starter {
-            position: fixed; top: 20px; right: 20px; z-index: 10000;
-            padding: 12px 25px; background: linear-gradient(to right, var(--gold-dark), var(--gold));
-            border: none; border-radius: 50px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 0 20px var(--gold); color: #000; animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
+        /* JACKPOT */
         .jp-box {
             background: linear-gradient(145deg, #222, #000); border: 3px gold double;
-            padding: 20px; border-radius: 20px; margin-bottom: 25px;
+            padding: 1vh; border-radius: 15px; margin-bottom: 1vh;
         }
-        .jp-value { font-size: 42px; font-weight: bold; color: #ff3333; text-shadow: 0 0 15px #ff0000; font-family: 'Courier New', monospace; }
+        .jp-value { 
+            font-size: clamp(20px, 4vh, 40px); font-weight: bold; color: #ff3333; 
+            text-shadow: 0 0 10px #ff0000; font-family: 'Courier New', monospace;
+        }
 
+        /* BÀN CƯỢC */
         .bowl-wrap {
-            width: 240px; height: 240px; margin: 20px auto; background: #000;
-            border-radius: 50%; border: 12px solid #2a2a2a; position: relative;
-            display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px var(--gold);
+            width: clamp(150px, 35vh, 230px); height: clamp(150px, 35vh, 230px);
+            margin: 1vh auto; background: #000; border-radius: 50%;
+            border: 10px solid #2a2a2a; position: relative;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px var(--gold);
         }
-
         .lid {
             position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 30% 30%, #555, #111);
-            border-radius: 50%; z-index: 10; cursor: pointer; transition: 0.9s cubic-bezier(0.5, -0.5, 0.5, 1.5);
+            border-radius: 50%; z-index: 10; cursor: pointer; transition: 0.8s cubic-bezier(0.5, -0.5, 0.5, 1.5);
             display: flex; justify-content: center; align-items: center; border: 2px solid #444;
         }
-        .lid::after { content: "MỞ BÁT"; border: 2px solid var(--gold); padding: 10px 20px; border-radius: 30px; color: var(--gold); font-weight: bold; }
-        .lid.open { transform: translate(180px, -180px) rotate(45deg); opacity: 0; pointer-events: none; }
+        .lid::after { content: "MỞ BÁT"; border: 2px solid var(--gold); padding: 5px 15px; border-radius: 20px; color: var(--gold); font-size: 12px; }
+        .lid.open { transform: translate(120%, -100%) rotate(45deg); opacity: 0; pointer-events: none; }
         
-        .dice { width: 55px; height: 55px; background: #fff; border-radius: 12px; color: #000; font-size: 32px; font-weight: bold; display: flex; justify-content: center; align-items: center; box-shadow: 4px 4px 0 #999; margin: 6px; }
+        .dice { width: 45px; height: 45px; background: #fff; border-radius: 8px; color: #000; font-size: 25px; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 4px; box-shadow: 2px 2px 0 #999; }
 
-        .bet-container { display: flex; gap: 15px; margin-top: 15px; }
-        .bet-card { flex: 1; padding: 25px; border-radius: 20px; border: 2px solid #333; cursor: pointer; transition: 0.3s; }
-        .bet-card.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.2); transform: scale(1.03); }
-        .bet-card h2 { margin: 0; font-size: 38px; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .bet-card { flex: 1; padding: 1.5vh; border-radius: 15px; border: 2px solid #333; cursor: pointer; transition: 0.2s; }
+        .bet-card.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.2); transform: scale(1.02); }
+        .bet-card h2 { margin: 0; font-size: clamp(20px, 5vh, 40px); }
 
-        .chip-box { margin-top: 25px; display: flex; justify-content: center; gap: 12px; }
+        /* CHIPS */
         .chip { 
             background: #1a1b21; border: 2px solid var(--gold); color: var(--gold); 
-            width: 70px; height: 70px; border-radius: 50%; cursor: pointer; 
-            font-weight: bold; font-size: 15px; transition: 0.2s;
-            box-shadow: 0 4px 0 var(--gold-dark);
+            width: 55px; height: 55px; border-radius: 50%; cursor: pointer; 
+            font-weight: bold; font-size: 12px; transition: 0.1s; box-shadow: 0 3px 0 var(--gold-dark);
         }
-        .chip:active { transform: translateY(4px); box-shadow: none; }
-        .chip.all-in { background: var(--royal-red); color: white; border-color: #ff4d4d; }
+        .chip:active { transform: translateY(3px); box-shadow: none; }
 
-        .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; margin: 3px; border: 1px solid #444; }
-        .dot.tai { background: var(--tai); box-shadow: 0 0 8px var(--tai); }
-        .dot.xiu { background: var(--xiu); box-shadow: 0 0 8px var(--xiu); }
+        /* SIDE PANELS */
+        .side-panel h3 { color: var(--gold); margin: 0 0 10px 0; font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin: 2px; }
+        .dot.tai { background: var(--tai); box-shadow: 0 0 5px var(--tai); }
+        .dot.xiu { background: var(--xiu); box-shadow: 0 0 5px var(--xiu); }
+
+        /* NẠP TIỀN */
+        .btn-deposit { 
+            padding: 12px; width: 100%; background: linear-gradient(to bottom, #f1c40f, #d35400); 
+            border:none; border-radius:10px; cursor:pointer; font-weight:bold; color: white; margin-top: 10px;
+        }
+        .btn-deposit.disabled { background: #444 !important; cursor: not-allowed; opacity: 0.5; box-shadow: none; }
+
+        /* AUDIO BUTTON */
+        #audio-starter {
+            position: fixed; top: 10px; left: 10px; z-index: 1000;
+            padding: 8px 15px; background: var(--gold); border: none; border-radius: 20px; font-weight: bold; cursor: pointer;
+        }
 
         #jackpot-alert {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            background: rgba(0,0,0,0.95); border: 8px solid gold; padding: 60px; 
-            z-index: 10001; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-radius: 40px;
+            background: rgba(0,0,0,0.95); border: 5px solid gold; padding: 40px; 
+            z-index: 10001; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; border-radius: 30px;
         }
         #jackpot-alert.active { transform: translate(-50%, -50%) scale(1); }
 
         .shake-anim { animation: shakeEffect 0.1s infinite; }
-        @keyframes shakeEffect { 0% { transform: translate(3px, 3px); } 50% { transform: translate(-3px, -3px); } }
-        
-        .mission-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; margin-top: 15px; border: 1px dashed #666; }
-        
-        .deposit-limit-text { font-size: 11px; color: #ff4444; margin-bottom: 5px; font-style: italic; }
+        @keyframes shakeEffect { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-2px, -2px); } }
+
+        /* FIREWORKS CANVAS */
+        #fw-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
     </style>
 </head>
 <body>
 
+<div id="orientation-warning">
+    <div class="phone-icon"></div>
+    <h2>VUI LÒNG XOAY NGANG ĐIỆN THOẠI</h2>
+    <p>Để trải nghiệm bàn cược Casino tốt nhất</p>
+</div>
+
 <canvas id="fw-canvas"></canvas>
-<button id="audio-starter" onclick="game.enableSound()">🔊 BẬT NHẠC CASINO VIP</button>
+<button id="audio-starter" onclick="game.enableSound()">🔊 BẬT NHẠC</button>
 
 <audio id="m-bg" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
 <audio id="s-chip" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
@@ -109,38 +141,35 @@
 <audio id="s-error" src="https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.mp3"></audio>
 
 <div class="container">
-    <div class="side-panel">
-        <div class="glass-panel">
-            <h3 style="color: var(--gold); margin-top:0">TRUNG TÂM NẠP TIỀN</h3>
-            <p style="color: #aaa; font-size: 14px;">Số dư tài khoản:</p>
-            <b id="balance" style="color: #2ecc71; font-size: 26px;">1,000,000,000</b>
-            <div style="margin-top: 20px;">
-                <div class="deposit-limit-text">* Giới hạn nạp tối đa 1.000.000.000 / lần</div>
-                <input type="number" id="inp-dep" placeholder="Nhập số tiền..." style="width: 85%; padding: 12px; border-radius: 10px; border: 2px solid #333; background: #000; color: #fff; text-align: center; font-weight: bold; margin-bottom: 10px;">
-                <button onclick="game.deposit()" style="padding: 15px; width: 90%; background: linear-gradient(to bottom, #f1c40f, #d35400); border:none; border-radius:12px; cursor:pointer; font-weight:bold; color: white; text-shadow: 1px 1px 2px black;">XÁC NHẬN NẠP TIỀN</button>
+    <div class="side-panel glass-panel">
+        <div>
+            <h3>💳 NGÂN HÀNG</h3>
+            <p style="font-size: 11px; color: #aaa;">Số dư hiện tại:</p>
+            <b id="balance" style="color: #2ecc71; font-size: 20px;">1,000,000,000</b>
+            <div style="margin-top: 15px;">
+                <input type="number" id="inp-dep" placeholder="Nạp tối đa 10 tỷ" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #000; color: #fff; text-align: center;">
+                <button id="btn-dep-action" onclick="game.deposit()" class="btn-deposit">NẠP TIỀN</button>
+                <p id="dep-msg" style="font-size: 10px; color: #ff4444; margin-top: 5px;"></p>
             </div>
         </div>
-        <div class="glass-panel" style="margin-top: 20px;">
-            <h3 style="color: var(--gold)">TIẾN ĐỘ NHIỆM VỤ</h3>
-            <div class="mission-box">
-                <p id="m-text">Đang thực hiện: 0/5 ván</p>
-                <div style="width: 100%; background: #222; height: 10px; border-radius: 5px; margin: 10px 0;">
-                    <div id="m-progress-bar" style="width: 0%; background: var(--gold); height: 100%; border-radius: 5px; transition: 0.5s;"></div>
-                </div>
-                <button id="m-btn" onclick="game.claimMission()" style="background:#444; color:#888; border:none; padding:10px 20px; border-radius:8px; cursor:not-allowed; width: 100%; font-weight: bold;">NHẬN THƯỞNG 100M</button>
+        <div>
+            <h3>🎯 NHIỆM VỤ</h3>
+            <p id="m-text" style="font-size: 12px;">Tiến độ: 0/5 ván</p>
+            <div style="width: 100%; background: #222; height: 8px; border-radius: 4px;">
+                <div id="m-bar" style="width: 0%; background: var(--gold); height: 100%; border-radius: 4px;"></div>
             </div>
+            <button id="m-btn" onclick="game.claimMission()" style="background:#333; border:none; padding:8px; width:100%; margin-top:10px; color:#666; cursor:not-allowed; border-radius:5px;">NHẬN 500M</button>
         </div>
     </div>
 
     <div class="main-game glass-panel">
         <div class="jp-box">
-            <div style="font-size: 16px; color: #ffd700; letter-spacing: 2px; font-weight: bold;">🐲 QUỸ HŨ RỒNG HOÀNG GIA 🐲</div>
             <div class="jp-value" id="jp-val">100,000,000</div>
+            <div style="font-size: 10px; color: gold;">🐲 JACKPOT RỒNG THIÊNG 🐲</div>
         </div>
 
-        <div id="game-info" style="color: #ffd700; font-weight: bold; text-transform: uppercase; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px;">Đang mở cổng đặt cược...</div>
-        <div id="timer" style="font-size: 55px; font-weight: 900; margin: 5px 0; color: #fff;">20</div>
-
+        <div id="timer" style="font-size: 35px; font-weight: bold; color: #fff;">20</div>
+        
         <div class="bowl-wrap">
             <div class="lid" id="lid" onclick="game.openLid()"></div>
             <div id="d1" class="dice">?</div>
@@ -148,54 +177,48 @@
             <div id="d3" class="dice">?</div>
         </div>
 
-        <div class="bet-container">
+        <div style="display:flex; gap:10px;">
             <div class="bet-card selected" id="b-tai" onclick="game.setSide('TAI')">
-                <h2 style="color: var(--tai)">TÀI</h2>
-                <div id="bet-tai-amt" style="font-size: 20px; font-family: monospace;">0</div>
+                <h2 style="color: var(--tai);">TÀI</h2>
+                <div id="bet-tai-amt" style="font-size: 14px;">0</div>
             </div>
             <div class="bet-card" id="b-xiu" onclick="game.setSide('XIU')">
-                <h2 style="color: var(--xiu)">XỈU</h2>
-                <div id="bet-xiu-amt" style="font-size: 20px; font-family: monospace;">0</div>
+                <h2 style="color: var(--xiu);">XỈU</h2>
+                <div id="bet-xiu-amt" style="font-size: 14px;">0</div>
             </div>
         </div>
 
-        <div class="chip-box">
+        <div style="display:flex; justify-content:center; gap:5px; margin-top: 10px;">
             <button class="chip" onclick="game.addBet(10000000)">10M</button>
-            <button class="chip" onclick="game.addBet(50000000)">50M</button>
             <button class="chip" onclick="game.addBet(100000000)">100M</button>
-            <button class="chip all-in" onclick="game.addBet('ALL')">ALL IN</button>
-            <button class="chip" style="background: #333; border-color: #555; box-shadow: 0 4px 0 #111;" onclick="game.clearBet()">XÓA</button>
+            <button class="chip all-in" onclick="game.addBet('ALL')" style="background:var(--royal-red); color:#fff;">ALL</button>
+            <button class="chip" style="background:#333; border:none;" onclick="game.clearBet()">XÓA</button>
         </div>
     </div>
 
-    <div class="side-panel">
-        <div class="glass-panel" style="max-height: 350px; overflow-y: auto;">
-            <h3 style="color: var(--gold)">BẢNG VINH DANH</h3>
-            <div id="rank-list">
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333; background: rgba(255,215,0,0.1);"><span>🥇 Hoàng Ka</span> <span style="color:gold">5.2 Tỷ</span></div>
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333;"><span>🥈 Trùm Tài Xỉu</span> <span style="color:gold">3.8 Tỷ</span></div>
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333;"><span>🥉 Bạn</span> <span id="rank-val" style="color:gold">1 Tỷ</span></div>
-            </div>
+    <div class="side-panel glass-panel">
+        <div style="flex: 1; overflow-y: auto;">
+            <h3>🏆 TOP ĐẠI GIA</h3>
+            <div style="font-size: 12px; display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #333;"><span>🥇 Hoàng Ka</span> <span>15 Tỷ</span></div>
+            <div style="font-size: 12px; display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #333;"><span>🥈 Bạn</span> <span id="rank-val">1 Tỷ</span></div>
         </div>
-        <div class="glass-panel" style="margin-top: 20px;">
-            <h3 style="color: var(--gold)">SOI CẦU CHI TIẾT</h3>
-            <div id="hist-dots" style="text-align: left; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 10px;"></div>
-            <div style="margin-top: 10px; font-size: 12px; color: #888;">* Lịch sử 24 phiên gần nhất</div>
+        <div>
+            <h3>📊 SOI CẦU</h3>
+            <div id="hist-dots"></div>
         </div>
     </div>
 </div>
 
 <div id="jackpot-alert">
-    <h1 style="color: gold; font-size: 70px; margin: 0; text-shadow: 0 0 30px red; letter-spacing: 5px;">JACKPOT</h1>
-    <p style="font-size: 28px; margin: 15px 0; font-weight: bold; color: white;">ĐẠI GIA ĐÃ NỔ HŨ THÀNH CÔNG!</p>
-    <h2 id="jp-win-amt" style="color: #ffcc00; font-size: 50px; font-family: 'Courier New';">+0</h2>
-    <button onclick="document.getElementById('jackpot-alert').classList.remove('active')" style="padding: 20px 50px; background: linear-gradient(to bottom, #ffd700, #b8860b); border:none; border-radius:15px; font-weight:bold; cursor:pointer; font-size:24px; color: black;">NHẬN THƯỞNG</button>
+    <h1 style="color: gold; font-size: 50px;">JACKPOT</h1>
+    <h2 id="jp-win-amt" style="color: #fff; font-size: 30px;">+0</h2>
+    <button onclick="document.getElementById('jackpot-alert').classList.remove('active')" style="padding: 10px 30px; background: gold; border:none; cursor:pointer; font-weight:bold; border-radius:10px;">TUYỆT VỜI</button>
 </div>
 
 <script>
 /**
- * LỚP ROYAL CASINO - PHIÊN BẢN ĐỒ ÁN
- * QUẢN LÝ TOÀN BỘ LOGIC GAME, ÂM THANH VÀ HỆ THỐNG NẠP
+ * LỚP ROYAL CASINO - PHIÊN BẢN CHUẨN ĐỒ ÁN
+ * TÍNH NĂNG: NẠP KHI HẾT TIỀN, GIỚI HẠN 10 TỶ, RESPONSIVE XOAY NGANG
  */
 class RoyalCasino {
     constructor() {
@@ -204,12 +227,11 @@ class RoyalCasino {
         this.timer = 20;
         this.state = 'BETTING'; 
         this.side = 'TAI';
-        this.betTai = 0; 
-        this.betXiu = 0;
+        this.betTai = 0; this.betXiu = 0;
         this.history = [];
         this.isAudio = false;
         this.missionCount = 0;
-        this.maxDepositLimit = 1000000000; // Giới hạn nạp 1 tỷ
+        this.maxDepositLimit = 10000000000; // 10 Tỷ
         
         this.init();
     }
@@ -222,7 +244,7 @@ class RoyalCasino {
     enableSound() {
         this.isAudio = true;
         const bg = document.getElementById('m-bg');
-        bg.volume = 0.3; // Nhạc nền vừa phải
+        bg.volume = 0.2;
         bg.play().catch(()=>{});
         document.getElementById('audio-starter').style.display = 'none';
     }
@@ -230,10 +252,7 @@ class RoyalCasino {
     playSound(id, loop = false) {
         if(!this.isAudio) return;
         const el = document.getElementById(id);
-        if(!el) return;
-        el.currentTime = 0;
-        el.loop = loop;
-        el.play().catch(()=>{});
+        if(el) { el.currentTime = 0; el.loop = loop; el.play().catch(()=>{}); }
     }
 
     stopSound(id) {
@@ -250,13 +269,10 @@ class RoyalCasino {
                     this.prepareLid();
                 }
             }
-            document.getElementById('timer').innerText = this.timer > 0 ? this.timer : "!";
         }, 1000);
     }
 
     prepareLid() {
-        document.getElementById('game-info').innerText = "Hết giờ đặt cược! Mời mở bát";
-        document.getElementById('game-info').style.color = "#ff4444";
         document.getElementById('lid').classList.add('shake-anim');
         this.playSound('s-dice', true);
         this.currentRes = this.calcResult();
@@ -272,15 +288,11 @@ class RoyalCasino {
     addBet(val) {
         if(this.state !== 'BETTING') return;
         let amt = val === 'ALL' ? this.balance : val;
-        if(this.balance < amt || amt <= 0) {
-            this.playSound('s-error');
-            return;
-        }
+        if(this.balance < amt || amt <= 0) { this.playSound('s-error'); return; }
 
         this.playSound('s-chip');
         if(this.side === 'TAI') this.betTai += amt;
         else this.betXiu += amt;
-        
         this.balance -= amt;
         this.jackpot += amt * 0.001;
         this.updateUI();
@@ -305,28 +317,21 @@ class RoyalCasino {
             document.getElementById('d1').innerText = Math.floor(Math.random()*6)+1;
             document.getElementById('d2').innerText = Math.floor(Math.random()*6)+1;
             document.getElementById('d3').innerText = Math.floor(Math.random()*6)+1;
-            if(++c > 18) {
-                clearInterval(shuffle);
-                this.finalize();
-            }
+            if(++c > 15) { clearInterval(shuffle); this.finalize(); }
         }, 80);
     }
 
     calcResult() {
-        let isJp = Math.random() < 0.01; // Tỉ lệ Jackpot 1%
+        let isJp = Math.random() < 0.01; 
         let d = [1,1,1];
         if(isJp) {
             let n = Math.floor(Math.random()*6)+1;
             d = [n,n,n];
         } else {
-            let trend = this.history[this.history.length-1] || 'TAI';
-            let winType = Math.random() < 0.6 ? trend : (trend==='TAI'?'XIU':'TAI');
+            let winType = Math.random() < 0.5 ? 'TAI' : 'XIU';
             let target = winType === 'TAI' ? (Math.floor(Math.random()*7)+11) : (Math.floor(Math.random()*8)+3);
             let cur = 3;
-            while(cur < target) { 
-                let i = Math.floor(Math.random()*3); 
-                if(d[i]<6){d[i]++; cur++;} 
-            }
+            while(cur < target) { let i = Math.floor(Math.random()*3); if(d[i]<6){d[i]++; cur++;} }
             if(d[0]===d[1] && d[1]===d[2]) d[0] = d[0]===6?5:d[0]+1;
         }
         let sum = d[0]+d[1]+d[2];
@@ -341,112 +346,85 @@ class RoyalCasino {
 
         if(r.isJp) {
             this.playSound('s-jp');
-            this.triggerJackpot(this.jackpot);
+            this.balance += this.jackpot;
+            document.getElementById('jp-win-amt').innerText = "+" + this.jackpot.toLocaleString();
+            document.getElementById('jackpot-alert').classList.add('active');
             this.jackpot = 100000000;
+            this.fireworks();
         } else {
             let win = r.res === 'TAI' ? this.betTai * 2 : this.betXiu * 2;
-            if(win > 0) {
-                this.balance += win;
-                this.playSound('s-win');
-            }
+            if(win > 0) { this.balance += win; this.playSound('s-win'); }
         }
 
         this.history.push(r.res);
         this.missionCount++;
         this.updateUI();
-        document.getElementById('game-info').innerText = `KẾT QUẢ PHIÊN: ${r.res} (${r.sum})`;
-        document.getElementById('game-info').style.color = "#ffd700";
         this.state = 'RESULT';
-        setTimeout(() => this.reset(), 5000);
-    }
-
-    triggerJackpot(amt) {
-        this.balance += amt;
-        document.getElementById('jp-win-amt').innerText = "+" + amt.toLocaleString();
-        document.getElementById('jackpot-alert').classList.add('active');
-        this.fireworks();
+        setTimeout(() => this.reset(), 4000);
     }
 
     reset() {
-        this.state = 'BETTING'; this.timer = 20;
-        this.betTai = 0; this.betXiu = 0;
+        this.state = 'BETTING'; this.timer = 20; this.betTai = 0; this.betXiu = 0;
         document.getElementById('lid').classList.remove('open');
-        document.getElementById('game-info').innerText = "Đang mở cổng đặt cược...";
-        document.getElementById('d1').innerText = "?";
-        document.getElementById('d2').innerText = "?";
-        document.getElementById('d3').innerText = "?";
+        document.getElementById('d1').innerText = "?"; document.getElementById('d2').innerText = "?"; document.getElementById('d3').innerText = "?";
         this.updateUI();
     }
 
     updateUI() {
-        document.getElementById('balance').innerText = this.balance.toLocaleString();
-        document.getElementById('rank-val').innerText = (this.balance/1000000000).toFixed(2) + " Tỷ";
+        const balEl = document.getElementById('balance');
+        const depBtn = document.getElementById('btn-dep-action');
+        const depMsg = document.getElementById('dep-msg');
+        
+        balEl.innerText = this.balance.toLocaleString();
+        document.getElementById('rank-val').innerText = (this.balance/1000000000).toFixed(1) + " Tỷ";
         document.getElementById('jp-val').innerText = Math.floor(this.jackpot).toLocaleString();
         document.getElementById('bet-tai-amt').innerText = this.betTai.toLocaleString();
         document.getElementById('bet-xiu-amt').innerText = this.betXiu.toLocaleString();
-        document.getElementById('hist-dots').innerHTML = this.history.slice(-24).map(i => `<div class="dot ${i.toLowerCase()}"></div>`).join('');
+        document.getElementById('hist-dots').innerHTML = this.history.slice(-18).map(i => `<div class="dot ${i.toLowerCase()}"></div>`).join('');
         
-        let progress = Math.min(this.missionCount, 5);
-        document.getElementById('m-text').innerText = `Tiến độ hiện tại: ${progress}/5 ván`;
-        document.getElementById('m-progress-bar').style.width = (progress/5 * 100) + "%";
-        
-        if(progress >= 5) {
-            const b = document.getElementById('m-btn');
-            b.style.background = "linear-gradient(to right, #f1c40f, #f39c12)";
-            b.style.color = "#000";
-            b.style.cursor = "pointer";
-            b.style.boxShadow = "0 0 10px gold";
+        let prog = Math.min(this.missionCount, 5);
+        document.getElementById('m-text').innerText = `Tiến độ: ${prog}/5 ván`;
+        document.getElementById('m-bar').style.width = (prog/5*100) + "%";
+        if(prog >= 5) {
+            document.getElementById('m-btn').style.background = "var(--gold)"; 
+            document.getElementById('m-btn').style.color = "#000";
+            document.getElementById('m-btn').style.cursor = "pointer";
+        }
+
+        // LOGIC: NẠP KHI HẾT TIỀN
+        if(this.balance > 0) {
+            depBtn.classList.add('disabled');
+            depBtn.innerText = "CÒN TIỀN...";
+            depMsg.innerText = "Phải hết tiền mới được nạp!";
+        } else {
+            depBtn.classList.remove('disabled');
+            depBtn.innerText = "XÁC NHẬN NẠP";
+            depMsg.innerText = "Đã cháy túi! Mời nạp thêm.";
         }
     }
 
-    /**
-     * HÀM NẠP TIỀN VỚI GIỚI HẠN 1 TỶ
-     */
     deposit() {
-        let inputVal = document.getElementById('inp-dep').value;
-        let amount = parseInt(inputVal);
+        if(this.balance > 0) return;
+        let amt = parseInt(document.getElementById('inp-dep').value);
+        if(isNaN(amt) || amt <= 0) { alert("Nhập số tiền nạp!"); return; }
 
-        if(isNaN(amount) || amount <= 0) {
-            alert("Vui lòng nhập số tiền nạp hợp lệ!");
-            this.playSound('s-error');
-            return;
+        if(amt > this.maxDepositLimit) {
+            alert("⚠️ Giới hạn nạp tối đa 10 Tỷ!");
+            amt = this.maxDepositLimit;
         }
 
-        // Kiểm tra giới hạn nạp 1 tỷ
-        if(amount > this.maxDepositLimit) {
-            alert("⚠️ Số tiền nạp vượt quá giới hạn 1.000.000.000 / lần!\nChúng tôi đã tự động điều chỉnh về 1 Tỷ cho bạn.");
-            amount = this.maxDepositLimit;
-        }
-
-        this.balance += amount; 
-        this.updateUI();
-        document.getElementById('inp-dep').value = "";
-        
-        // Hiệu ứng tiền nhảy
-        document.getElementById('balance').style.transform = "scale(1.2)";
-        setTimeout(() => document.getElementById('balance').style.transform = "scale(1)", 200);
-        
+        this.balance += amt;
         this.playSound('s-chip');
-        console.log("Nạp thành công: " + amount);
+        document.getElementById('inp-dep').value = "";
+        this.updateUI();
     }
 
     claimMission() {
         if(this.missionCount >= 5) {
-            this.balance += 100000000;
+            this.balance += 500000000;
             this.missionCount = 0;
             this.updateUI();
-            
-            // Reset button style
-            const b = document.getElementById('m-btn');
-            b.style.background = "#444";
-            b.style.color = "#888";
-            b.style.cursor = "not-allowed";
-            b.style.boxShadow = "none";
-            
-            alert("🎁 NHẬN THƯỞNG THÀNH CÔNG!\nTài khoản được cộng 100,000,000 VNĐ.");
-            this.playSound('s-win');
-        } else {
-            alert("Bạn cần hoàn thành đủ 5 ván chơi!");
+            alert("🎁 Đã nhận 500,000,000 VNĐ!");
         }
     }
 
@@ -455,7 +433,7 @@ class RoyalCasino {
         const cx = cv.getContext('2d');
         cv.width = window.innerWidth; cv.height = window.innerHeight;
         let pts = [];
-        for(let i=0; i<150; i++) {
+        for(let i=0; i<100; i++) {
             pts.push({ x: cv.width/2, y: cv.height/2, vx: Math.random()*12-6, vy: Math.random()*12-6, c: `hsl(${Math.random()*360},100%,50%)`, l: 80 });
         }
         function draw() {
@@ -471,7 +449,6 @@ class RoyalCasino {
     }
 }
 
-// KHỞI TẠO ĐỐI TƯỢNG GAME
 const game = new RoyalCasino();
 </script>
 </body>
