@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ROYAL CASINO - FINAL MASTER BOSS 2026</title>
+    <title>ROYAL CASINO - VIP MOBILE 2026</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -23,7 +23,7 @@
             overflow: hidden;
         }
 
-        /* HIỆU ỨNG NHÁY ĐỎ THẮNG GIỐNG ẢNH */
+        /* HIỆU ỨNG NHÁY ĐỎ THẮNG */
         .win-blink { animation: blinkRed 0.4s infinite !important; border: 3px solid #ff0000 !important; box-shadow: 0 0 50px #ff0000 !important; z-index: 100; }
         @keyframes blinkRed { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(2.5); transform: scale(1.02); } }
 
@@ -31,73 +31,74 @@
         @keyframes shakeScreen { 0%, 100% { transform: translate(0,0); } 10%, 30% { transform: translate(-5px,-5px); } 50%, 70% { transform: translate(5px, 5px); } }
 
         .container { display: flex; gap: 10px; width: 100vw; height: 100vh; padding: 8px; max-width: 1550px; }
-        .side-col-chat { flex: 0 0 380px; display: flex; flex-direction: column; gap: 10px; }
+        .side-col-chat { flex: 0 0 320px; display: flex; flex-direction: column; gap: 10px; }
         .side-col-bank { flex: 0 0 260px; display: flex; flex-direction: column; gap: 10px; }
         .main-col { flex: 1; display: flex; flex-direction: column; gap: 10px; }
 
         .glass-panel { background: var(--glass); border: 1.5px solid rgba(255, 204, 0, 0.2); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative; }
 
-        /* FIX CHAT VIP */
-        .chat-box { flex: 1; overflow-y: auto; font-size: 15px; scroll-behavior: smooth; display: flex; flex-direction: column; gap: 12px; padding: 10px; }
-        .chat-msg { animation: slideUp 0.3s ease; padding: 12px; border-radius: 15px; background: rgba(255,255,255,0.07); border-left: 5px solid var(--gold); position: relative; line-height: 1.4; }
-        .chat-user { font-weight: 900; color: var(--gold); font-size: 13px; margin-bottom: 4px; display: block; }
-        .chat-input-area { display: flex; gap: 5px; margin-top: 10px; background: #000; padding: 8px; border-radius: 10px; border: 1px solid #333; }
-        #chat-input { flex: 1; background: transparent; border: none; color: #fff; outline: none; padding: 5px; }
+        /* THANH CHAT VIP */
+        .chat-box { flex: 1; overflow-y: auto; font-size: 14px; scroll-behavior: smooth; display: flex; flex-direction: column; gap: 10px; padding: 5px; }
+        .chat-msg { animation: slideUp 0.3s ease; padding: 10px; border-radius: 12px; background: rgba(255,255,255,0.05); border-left: 4px solid var(--gold); }
+        .chat-user { font-weight: 900; color: var(--gold); font-size: 12px; margin-bottom: 3px; display: block; }
 
-        .jp-box { background: linear-gradient(180deg, #900, #300); border: 2px solid var(--gold); border-radius: 12px; padding: 10px; text-align: center; }
-        .jp-value { font-size: 45px; color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 20px #f00; }
+        .jp-box { background: linear-gradient(180deg, #900, #300); border: 2px solid var(--gold); border-radius: 12px; padding: 8px; text-align: center; }
+        .jp-value { font-size: clamp(30px, 4vw, 45px); color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 20px #f00; }
 
-        #timer { font-size: 80px; font-weight: 900; color: #fff; text-shadow: 0 0 35px var(--gold); text-align: center; margin: -5px 0; }
+        #timer { font-size: clamp(50px, 8vw, 80px); font-weight: 900; color: #fff; text-shadow: 0 0 35px var(--gold); text-align: center; margin: -5px 0; }
         
-        .bowl-wrap { width: 210px; height: 210px; aspect-ratio: 1/1; margin: 0 auto; background: #000; border-radius: 50%; border: 10px solid #222; position: relative; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 50px rgba(255,204,0,0.25); }
+        .bowl-wrap { width: clamp(160px, 35vh, 220px); aspect-ratio: 1/1; margin: 0 auto; background: #000; border-radius: 50%; border: 10px solid #222; position: relative; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 50px rgba(255,204,0,0.2); }
         .lid { position: absolute; width: 102%; height: 102%; background: radial-gradient(circle at 35% 35%, #444, #000); border-radius: 50%; z-index: 10; cursor: pointer; transition: 0.7s; border: 1px solid #333; }
         .lid.open { transform: translate(140%, -100%) rotate(40deg); opacity: 0; }
-        #open-text { display: none; position: absolute; z-index: 15; font-size: 24px; font-weight: 900; color: #fff; background: var(--gold); padding: 12px 30px; border-radius: 50px; pointer-events: none; animation: pulse 0.6s infinite; }
 
-        .dice { width: 50px; height: 50px; background: #fff; border-radius: 12px; color: #000; font-size: 32px; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 0 5px; box-shadow: 4px 4px 0 #999; }
+        .dice { width: 45px; height: 45px; background: #fff; border-radius: 10px; color: #000; font-size: 28px; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 0 5px; box-shadow: 4px 4px 0 #999; }
 
-        .bet-area { display: flex; gap: 15px; margin-top: 5px; }
-        .bet-box { flex: 1; background: rgba(0,0,0,0.7); padding: 20px; border-radius: 18px; border: 3px solid #333; cursor: pointer; text-align: center; transition: 0.2s; }
+        .bet-area { display: flex; gap: 12px; margin-top: 5px; }
+        .bet-box { flex: 1; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 18px; border: 3px solid #333; cursor: pointer; text-align: center; transition: 0.2s; }
         .bet-box.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.1); }
-        .user-bet-val { color: #fff !important; font-size: 30px; font-weight: 900; text-shadow: 0 0 15px var(--gold); margin: 5px 0; }
+        .user-bet-val { color: #fff !important; font-size: clamp(20px, 3vw, 30px); font-weight: 900; text-shadow: 0 0 15px var(--gold); margin: 5px 0; }
 
-        /* BIỂU ĐỒ SOI CẦU */
-        .chart-btn { position: absolute; bottom: 15px; right: 15px; background: linear-gradient(180deg, #b8860b, #44332a); border: 2px solid #fff; padding: 12px 30px; border-radius: 12px; color: #fff; font-size: 18px; cursor: pointer; font-weight: 900; box-shadow: 0 5px 15px #000; }
-        #chart-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3000; width: 95%; max-width: 1000px; background: #0a0a0c; border: 3px solid var(--gold); border-radius: 25px; padding: 30px; box-shadow: 0 0 150px #000; }
-
-        .chip-row { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
-        .chip { width: 80px; height: 55px; background: var(--chip-bg); border: 2.5px solid var(--chip-border); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: 900; color: #fbc531; font-size: 17px; cursor: pointer; box-shadow: 0 5px 10px #000; }
+        .chip-row { display: flex; justify-content: center; gap: 6px; margin-top: 15px; flex-wrap: wrap; }
+        .chip { width: 70px; height: 48px; background: var(--chip-bg); border: 2px solid var(--chip-border); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-weight: 900; color: #fbc531; font-size: 15px; cursor: pointer; }
         .chip:active { transform: scale(0.9); }
 
-        /* MD5 HASH DISPLAY */
-        .md5-info { font-size: 10px; color: #666; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px; margin-top: 5px; font-family: monospace; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        /* NÚT SOI CẦU MỚI */
+        .roadmap-container { cursor: pointer; position: relative; border-radius: 12px; overflow: hidden; transition: 0.3s; }
+        .roadmap-container:hover { filter: brightness(1.3); transform: scale(1.02); }
+        .roadmap-label { color: var(--gold); font-size: 16px; font-weight: 900; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .roadmap-label span { font-size: 10px; background: var(--gold); color: #000; padding: 2px 6px; border-radius: 4px; animation: pulse 1s infinite; }
+
+        /* MODAL BIỂU ĐỒ */
+        #chart-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3000; width: 95%; max-width: 800px; background: #0c0c0f; border: 2px solid var(--gold); border-radius: 20px; padding: 15px; box-shadow: 0 0 100px #000; }
 
         .roadmap { background: #000; border: 1px solid #333; border-radius: 12px; height: 110px; display: grid; grid-template-rows: repeat(6, 1fr); grid-auto-flow: column; gap: 3px; padding: 8px; overflow-x: auto; }
-        .dot { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset -3px -3px 6px rgba(0,0,0,0.5); }
+        .dot { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset -3px -3px 6px rgba(0,0,0,0.5); }
         .dot.tai { background: radial-gradient(circle at 30% 30%, #fff, var(--tai), #860); }
         .dot.xiu { background: radial-gradient(circle at 30% 30%, #fff, var(--xiu), #048); }
 
-        #balance { color: var(--win); font-size: 30px; font-weight: bold; }
-        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; font-size: 20px; }
-        .settings-btn { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--gold); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; box-shadow: 0 0 15px var(--gold); }
+        #balance { color: var(--win); font-size: 24px; font-weight: bold; }
+        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 16px; }
+        .settings-btn { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--gold); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 20px; }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <button class="settings-btn" onclick="game.toggleSettings()">⚙️</button>
-<div id="settings-modal" style="display:none; position:fixed; top:80px; right:20px; z-index:2000; width:220px; background:#111; border:2px solid var(--gold); border-radius:15px; padding:15px;">
-    <h4 style="text-align:center; color:var(--gold); margin-bottom:10px;">CÀI ĐẶT</h4>
-    <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Nhạc nền</span><input type="checkbox" id="bg-music-toggle" onchange="game.updateAudio()"></div>
-    <div style="display:flex; justify-content:space-between;"><span>Hiệu ứng</span><input type="checkbox" id="sfx-toggle" checked onchange="game.updateAudio()"></div>
+<div id="settings-modal" style="display:none; position:fixed; top:60px; right:15px; z-index:2000; width:180px; background:#111; border:2px solid var(--gold); border-radius:15px; padding:15px;">
+    <h4 style="text-align:center; color:var(--gold); margin-bottom:10px; font-size:14px;">ÂM THANH</h4>
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:12px;"><span>Nhạc nền</span><input type="checkbox" id="bg-music-toggle" onchange="game.updateAudio()"></div>
+    <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Hiệu ứng</span><input type="checkbox" id="sfx-toggle" checked onchange="game.updateAudio()"></div>
 </div>
 
 <div id="chart-modal">
-    <div style="display:flex; justify-content:space-between; color:var(--gold); margin-bottom:15px;">
-        <h2 style="font-size:28px;">📊 SOI CẦU MD5 TỐI GIẢN</h2>
-        <b onclick="game.toggleChart()" style="cursor:pointer; font-size:40px;">&times;</b>
+    <div style="display:flex; justify-content:space-between; color:var(--gold); margin-bottom:10px;">
+        <h2 style="font-size:18px;">📊 BIỂU ĐỒ SOI CẦU</h2>
+        <b onclick="game.toggleChart()" style="cursor:pointer; font-size:24px;">&times;</b>
     </div>
-    <div style="background:#111; padding:20px; border-radius:15px;"><canvas id="md5Chart" height="220"></canvas></div>
-    <div style="background:#111; padding:15px; border-radius:15px; margin-top:15px;"><canvas id="diceChart" height="150"></canvas></div>
+    <div style="background:#111; border-radius:10px; padding:5px;"><canvas id="md5Chart" height="180"></canvas></div>
+    <div style="background:#111; border-radius:10px; padding:5px; margin-top:10px;"><canvas id="diceChart" height="120"></canvas></div>
 </div>
 
 <audio id="m-bg" loop src="https://files.catbox.moe/v4cqzx.mp4"></audio>
@@ -108,36 +109,34 @@
 
 <div class="container">
     <div class="side-col-chat glass-panel">
-        <h3 style="color:var(--gold); font-size:18px; margin-bottom:12px; text-align:center;">💬 CHAT QUỐC TẾ</h3>
+        <h3 style="color:var(--gold); font-size:16px; margin-bottom:10px; text-align:center;">💬 CHAT VIP</h3>
         <div class="chat-box" id="chat-box"></div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." onkeypress="if(event.key==='Enter') game.sendRealChat()">
-            <button onclick="game.sendRealChat()" style="background:var(--gold); border:none; padding:5px 12px; border-radius:5px; font-weight:bold; cursor:pointer;">GỬI</button>
+        <div style="display:flex; gap:5px; margin-top:5px; background:#000; padding:5px; border-radius:8px;">
+            <input type="text" id="chat-input" placeholder="Chat..." style="flex:1; background:transparent; border:none; color:#fff; font-size:12px; outline:none;">
+            <button onclick="game.sendRealChat()" style="background:var(--gold); border:none; padding:4px 10px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:11px;">GỬI</button>
         </div>
     </div>
 
     <div class="main-col glass-panel">
-        <div style="display:flex; justify-content:space-between; font-size:14px; color:rgba(255,255,255,0.5); font-weight: 900;">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:rgba(255,255,255,0.5);">
             <span id="session-id">PHIÊN: #44230881</span><span>🔥 JACKPOT 🔥</span>
         </div>
         <div class="jp-box"><div class="jp-value" id="jp-val">5,000,000,000</div></div>
         <div id="timer">--</div>
-        <div class="md5-info" id="md5-pre">MD5: Loading...</div>
         
         <div class="bowl-wrap">
-            <div id="open-text">MỞ BÁT</div>
             <div class="lid" id="lid" onclick="game.openLid()"></div>
             <div id="d1" class="dice">?</div><div id="d2" class="dice">?</div><div id="d3" class="dice">?</div>
         </div>
         
         <div class="bet-area">
             <div class="bet-box selected" id="box-tai" onclick="game.selectSide('TAI')">
-                <h2 style="color:var(--tai); font-size:26px; font-weight:900;">TÀI</h2><div id="u-tai" class="user-bet-val">0</div>
-                <div style="font-size:12px; color:#666">Sảnh: <span id="t-tai" style="color:var(--gold)">0</span></div>
+                <h2 style="color:var(--tai); font-size:22px;">TÀI</h2><div id="u-tai" class="user-bet-val">0</div>
+                <div style="font-size:10px; color:#666">Sảnh: <span id="t-tai" style="color:var(--gold)">0</span></div>
             </div>
             <div class="bet-box" id="box-xiu" onclick="game.selectSide('XIU')">
-                <h2 style="color:var(--xiu); font-size:26px; font-weight:900;">XỈU</h2><div id="u-xiu" class="user-bet-val">0</div>
-                <div style="font-size:12px; color:#666">Sảnh: <span id="t-xiu" style="color:var(--gold)">0</span></div>
+                <h2 style="color:var(--xiu); font-size:22px;">XỈU</h2><div id="u-xiu" class="user-bet-val">0</div>
+                <div style="font-size:10px; color:#666">Sảnh: <span id="t-xiu" style="color:var(--gold)">0</span></div>
             </div>
         </div>
         <div class="chip-row">
@@ -146,20 +145,19 @@
             <div class="chip" onclick="game.addBet(50000000)">50M</div>
             <div class="chip" onclick="game.addBet(100000000)">100M</div>
             <div class="chip" onclick="game.allIn()" style="background:var(--win); color:#fff; border-color:#fff;">ALL IN</div>
-            <button onclick="game.clearBet()" style="background:#222; color:#aaa; border:none; border-radius:10px; padding:0 15px; cursor:pointer; font-weight:bold;">XÓA</button>
+            <button onclick="game.clearBet()" style="background:#222; color:#aaa; border:none; border-radius:10px; padding:0 15px; cursor:pointer; font-weight:bold; font-size:11px;">XÓA</button>
         </div>
-        <button class="chart-btn" onclick="game.toggleChart()">📊 SOI CẦU MD5</button>
     </div>
 
     <div class="side-col-bank glass-panel">
         <div>
-            <h3 style="color:var(--gold); font-size:18px; margin-bottom:5px;">🏦 NGÂN HÀNG</h3>
-            <b id="balance">0</b><div id="user-ip-display" style="font-size:11px; color:#555; margin-bottom:8px;">...</div>
-            <input type="number" id="inp-dep" placeholder="Nạp tiền..." style="width:100%; padding:14px; background:#000; border:1.5px solid #333; color:#fff; border-radius:12px; text-align:center; font-weight:bold;">
-            <button id="btn-dep" class="btn-dep" onclick="game.deposit()">XÁC NHẬN NẠP</button>
+            <h3 style="color:var(--gold); font-size:16px;">🏦 BANK</h3>
+            <b id="balance">0</b>
+            <input type="number" id="inp-dep" placeholder="Nạp..." style="width:100%; padding:10px; background:#000; border:1px solid #333; color:#fff; border-radius:8px; text-align:center; margin-top:5px;">
+            <button id="btn-dep" class="btn-dep" onclick="game.deposit()">NẠP TIỀN</button>
         </div>
-        <div style="flex:1; margin-top:20px; display:flex; flex-direction:column">
-            <h3 style="color:var(--gold); font-size:16px; margin-bottom:8px;">📊 SOI CẦU</h3>
+        <div style="flex:1; margin-top:15px;" class="roadmap-container" onclick="game.toggleChart()">
+            <div class="roadmap-label">SOI CẦU <span>XEM BIỂU ĐỒ</span></div>
             <div class="roadmap" id="roadmap"></div>
         </div>
     </div>
@@ -169,17 +167,17 @@
 class CasinoMaster {
     constructor() {
         this.balance = parseInt(localStorage.getItem('casino_balance')) || 400000000;
-        this.jackpot = 5125000000;
+        this.jackpot = 25125000000;
         this.state = 'BET'; this.side = null;
         this.bT = 0; this.bX = 0; this.fT = 0; this.fX = 0;
         this.roundDur = 40; this.userIP = "Unknown";
         this.history = []; this.baseSession = 44230881;
         this.teleToken = "8537807711:AAGhZcmt5-54vFRoY4OxGT06XvRmkkwvutg"; 
         this.teleChatId = "-1003672099430";
-        this.init(); this.getIP(); this.runLiveBets(); this.runJackpotTimer(); this.startChatSystem();
+        this.init(); this.getIP(); this.runLiveBets(); this.runJackpotTimer(); this.startFakeChatSystem();
     }
 
-    async getIP() { try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); this.userIP = d.ip; document.getElementById('user-ip-display').innerText = "IP: " + this.userIP; } catch (e) { document.getElementById('user-ip-display').innerText = "IP: 127.0.0.1"; } }
+    async getIP() { try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); this.userIP = d.ip; } catch (e) { } }
     saveData() { localStorage.setItem('casino_balance', this.balance); }
     toggleSettings() { const m = document.getElementById('settings-modal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
     updateAudio() { const bgm = document.getElementById('m-bg'); if(document.getElementById('bg-music-toggle').checked) { bgm.volume=0.3; bgm.play().catch(()=>{}); } else bgm.pause(); }
@@ -192,9 +190,8 @@ class CasinoMaster {
         if(!isJp && d[0]===d[1] && d[1]===d[2]) d[0] = d[0]===6?1:d[0]+1;
         const sum = d[0]+d[1]+d[2];
         const win = sum >= 11 ? 'TAI' : 'XIU';
-        const raw = `PHIEN_${s}:${d.join('-')}:${win}:VIP_SALT`;
-        const md5 = CryptoJS.MD5(raw).toString();
-        return { s, d, sum, win, isJp, md5, raw };
+        const md5 = CryptoJS.MD5(`PHIEN_${s}:${d.join('-')}:${win}:VIP`).toString();
+        return { s, d, sum, win, isJp, md5 };
     }
 
     init() { 
@@ -210,11 +207,8 @@ class CasinoMaster {
         document.getElementById('session-id').innerText = "PHIÊN: #" + session;
 
         if (cycle < 25) { 
-            if (this.state !== 'BET') this.resetRound(); 
+            if (this.state !== 'BET') this.resetRound();
             this.state = 'BET'; this.timer = 25 - cycle; document.getElementById('timer').innerText = this.timer;
-            // Hiển thị MD5 trước khi có kết quả
-            const nextRes = this.getSeedResult(session);
-            document.getElementById('md5-pre').innerText = "MD5: " + nextRes.md5;
         } else if (cycle < 35) {
             if (this.state === 'BET') {
                 this.state = 'WAIT'; this.currentRes = this.getSeedResult(session);
@@ -224,13 +218,6 @@ class CasinoMaster {
             document.getElementById('timer').innerText = "!";
         } else { this.state = 'RESULT'; document.getElementById('timer').innerText = "WAIT"; }
         this.syncHistory();
-    }
-
-    async sendTeleResult(s, r, userWinReal = 0) {
-        let betName = (this.side === 'TAI') ? "TÀI" : (this.side === 'XIU' ? "XỈU" : "KHÔNG");
-        let winText = userWinReal > 0 ? `\n💰 THẮNG: +${userWinReal.toLocaleString()} VNĐ ✅` : (this.side ? `\n💸 THUA: -${(this.side==='TAI'?this.bT:this.bX).toLocaleString()} VNĐ ❌` : `\n👀 KHÔNG CƯỢC`);
-        const msg = `🎰 PHIÊN #${s}\n🎲 ${r.d.join(' - ')} -> ${r.win}\n🎯 Đặt: ${betName}${winText}\n💰 Số dư: ${this.balance.toLocaleString()}\n🌐 IP: ${this.userIP}`;
-        fetch(`https://api.telegram.org/bot${this.teleToken}/sendMessage?chat_id=${this.teleChatId}&text=${encodeURIComponent(msg)}`).catch(()=>{});
     }
 
     payout() {
@@ -245,54 +232,48 @@ class CasinoMaster {
             const userBet = (r.win === 'TAI') ? this.bT : this.bX;
             if(userBet > 0) { 
                 userWinReal = Math.floor((userBet / totalInSide) * this.jackpot); this.balance += userWinReal; 
-                this.logChat("HỆ THỐNG", `🎉 BẠN ĐƯỢC CHIA HŨ: +${userWinReal.toLocaleString()}!`, "red");
                 document.getElementById(this.side === 'TAI' ? 'box-tai' : 'box-xiu').classList.add('win-blink');
             }
-            this.jackpot = 100000000; document.getElementById('jp-val').innerText = "0";
+            this.jackpot = 100000000;
             setTimeout(() => { document.body.classList.remove('jackpot-shake'); }, 5000);
         } else {
             if (this.side === r.win) {
                 const bet = (this.side === 'TAI' ? this.bT : this.bX);
-                userWinReal = Math.floor(bet * 1.9); // Tỉ lệ 1 ăn 1.9 (0.9 lợi nhuận + 1 vốn)
+                userWinReal = Math.floor(bet * 1.9); 
                 this.balance += userWinReal; this.playSound('s-win');
                 const winBox = document.getElementById(this.side === 'TAI' ? 'box-tai' : 'box-xiu');
                 winBox.classList.add('win-blink');
                 setTimeout(() => winBox.classList.remove('win-blink'), 5000);
             }
         }
-        this.sendTeleResult(Math.floor(Date.now()/1000/this.roundDur), r, userWinReal);
         this.saveData(); this.updateUI();
     }
 
-    sendRealChat() {
-        const input = document.getElementById('chat-input');
-        if(input.value.trim() !== "") { this.logChat("BẠN", input.value, "#00ff00"); input.value = ""; }
-    }
-
+    sendRealChat() { const i = document.getElementById('chat-input'); if(i.value.trim()){ this.logChat("BẠN", i.value, "#00ff00"); i.value=""; } }
     logChat(u, m, c) {
         const d = document.createElement('div'); d.className='chat-msg';
         d.innerHTML = `<span class="chat-user" style="color:${c||'var(--gold)'}">${u}:</span> ${m}`;
         const b = document.getElementById('chat-box'); b.appendChild(d);
-        if(b.children.length>50) b.removeChild(b.firstChild); b.scrollTop=b.scrollHeight;
+        if(b.children.length>40) b.removeChild(b.firstChild); b.scrollTop=b.scrollHeight;
     }
 
-    startChatSystem() {
-        const u = Array.from({ length: 40 }, () => ["Huy","Hoàng","Lan","Anh","Vua","Thánh"][Math.floor(Math.random()*6)] + " " + ["VIP","99","bé","điếc"][Math.floor(Math.random()*4)]);
-        const ms = { bet: ["Tài chắc rồi ae", "Cầu bệt đẹp, vả mạnh đi", "Nạp 500 củ nặn cho sướng"], wait: ["Mở đi admin ơi", "Nặn đi ae hồi hộp quá", "Ra Xỉu đi lạy trời"], res: ["Bịp vcl admin", "Húp rồi thơm quá", "Lại giàu rồi ae ơi"] };
-        setInterval(() => { if (Math.random() > 0.5) { let p = (this.state==='BET'?ms.bet:(this.state==='RESULT'?ms.res:ms.wait)); this.logChat(u[Math.floor(Math.random()*40)], p[Math.floor(Math.random()*p.length)]); } }, 2000);
+    startFakeChatSystem() {
+        const u = ["Huy VIP","Thánh Soi","Hoàng Bé","Lan Pro"];
+        const ms = { bet: ["Tài chắc","Xỉu đi ae","Nặn phê quá"], wait: ["Mở đi admin","Hồi hộp vcl"], res: ["Bịp quá","Húp r thơm","Lại giàu"] };
+        setInterval(() => { if (Math.random() > 0.5) { let p = (this.state==='BET'?ms.bet:(this.state==='RESULT'?ms.res:ms.wait)); this.logChat(u[Math.floor(Math.random()*u.length)], p[Math.floor(Math.random()*p.length)]); } }, 3000);
     }
 
-    openLid() { if(this.state === 'WAIT') { document.getElementById('lid').classList.add('open'); this.state='ANIM'; let count=0; let si=setInterval(()=>{ document.getElementById('d1').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d2').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d3').innerText=Math.floor(Math.random()*6)+1; document.querySelectorAll('.dice').forEach(d => d.style.transform = `rotate(${Math.random()*20-10}deg)`); if(++count>15){ clearInterval(si); document.querySelectorAll('.dice').forEach(d => d.style.transform = `rotate(0deg)`); this.payout(); } },80); } }
+    openLid() { if(this.state === 'WAIT') { document.getElementById('lid').classList.add('open'); this.state='ANIM'; let c=0; let si=setInterval(()=>{ document.getElementById('d1').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d2').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d3').innerText=Math.floor(Math.random()*6)+1; if(++c>15){ clearInterval(si); this.payout(); } },80); } }
     toggleChart() { const m = document.getElementById('chart-modal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; if(m.style.display === 'block') this.drawCharts(); }
     drawCharts() {
         const last20 = this.history.slice(-20); const labels = last20.map(h => h.s.toString().slice(-4));
         if(this.md5Chart) this.md5Chart.destroy(); if(this.diceChart) this.diceChart.destroy();
         const ctx1 = document.getElementById('md5Chart').getContext('2d');
-        this.md5Chart = new Chart(ctx1, { type: 'line', data: { labels, datasets: [{ data: last20.map(h=>h.sum), borderColor: '#ffcc00', borderWidth: 8, tension: 0.1, pointRadius: 10, pointBackgroundColor: '#fff', fill: true, backgroundColor: 'rgba(255, 204, 0, 0.05)' }]}, options: { scales: { y: { min: 3, max: 18, grid: { display: false }, ticks: { color: '#fff', font: { size: 18, weight: 'bold' } } }, x: { grid: { display: false }, ticks: { color: '#fff', font: { size: 14 } } } }, plugins: { legend: { display: false } } } });
+        this.md5Chart = new Chart(ctx1, { type: 'line', data: { labels, datasets: [{ data: last20.map(h=>h.sum), borderColor: '#ffcc00', borderWidth: 4, tension: 0.1, pointRadius: 6, pointBackgroundColor: '#fff', fill: true, backgroundColor: 'rgba(255, 204, 0, 0.05)' }]}, options: { scales: { y: { min: 3, max: 18, grid: { display: false }, ticks: { color: '#fff' } }, x: { grid: { display: false }, ticks: { color: '#fff' } } }, plugins: { legend: { display: false } } } });
         const ctx2 = document.getElementById('diceChart').getContext('2d');
-        this.diceChart = new Chart(ctx2, { type: 'line', data: { labels, datasets: [{ label: 'V1', data: last20.map(h=>h.d[0]), borderColor: '#f0f', tension: 0.1, pointRadius: 4 }, { label: 'V2', data: last20.map(h=>h.d[1]), borderColor: '#ff0', tension: 0.1, pointRadius: 4 }, { label: 'V3', data: last20.map(h=>h.d[2]), borderColor: '#0ff', tension: 0.1, pointRadius: 4 }]}, options: { scales: { y: { min: 1, max: 6, grid: { color: '#222' }, ticks: { color: '#888' } }, x: { grid: { display: false }, ticks: { color: '#888' } } }, plugins: { legend: { labels: { color: '#888' } } } } });
+        this.diceChart = new Chart(ctx2, { type: 'line', data: { labels, datasets: [{ label: 'V1', data: last20.map(h=>h.d[0]), borderColor: '#f0f', tension: 0.1, pointRadius: 3 }, { label: 'V2', data: last20.map(h=>h.d[1]), borderColor: '#ff0', tension: 0.1, pointRadius: 3 }, { label: 'V3', data: last20.map(h=>h.d[2]), borderColor: '#0ff', tension: 0.1, pointRadius: 3 }]}, options: { scales: { y: { min: 1, max: 6, grid: { color: '#222' }, ticks: { color: '#888' } }, x: { grid: { display: false }, ticks: { color: '#888' } } }, plugins: { legend: { labels: { color: '#888' } } } } });
     }
-    deposit() { if(this.balance <= 0) { let a = parseInt(document.getElementById('inp-dep').value); if(a>0){ this.balance += Math.min(a, 10000000000); this.saveData(); this.updateUI(); fetch(`https://api.telegram.org/bot${this.teleToken}/sendMessage?chat_id=${this.teleChatId}&text=${encodeURIComponent('🔔 NẠP TIỀN: +'+a.toLocaleString()+'\n🌐 IP: '+this.userIP)}`).catch(()=>{}); } } }
+    deposit() { let a = parseInt(document.getElementById('inp-dep').value); if(a>0){ this.balance += Math.min(a, 10000000000); this.saveData(); this.updateUI(); } }
     addBet(m) { if(this.timer > 3 && this.side !== null && this.balance >= m) { this.playSound('s-chip'); if(this.side === 'TAI') this.bT += m; else this.bX += m; this.balance -= m; this.updateUI(); } }
     updateUI() { document.getElementById('balance').innerText = this.balance.toLocaleString(); document.getElementById('u-tai').innerText = this.bT.toLocaleString(); document.getElementById('u-xiu').innerText = this.bX.toLocaleString(); document.getElementById('box-tai').classList.toggle('selected', this.side==='TAI'); document.getElementById('box-xiu').classList.toggle('selected', this.side==='XIU'); if(this.bT>0) document.getElementById('box-xiu').classList.add('disabled-side'); if(this.bX>0) document.getElementById('box-tai').classList.add('disabled-side'); }
     resetRound() { this.bT=0; this.bX=0; this.fT=0; this.fX=0; this.side=null; document.getElementById('lid').classList.remove('open'); document.getElementById('box-tai').classList.remove('disabled-side', 'win-blink'); document.getElementById('box-xiu').classList.remove('disabled-side', 'win-blink'); document.getElementById('d1').innerText="?"; document.getElementById('d2').innerText="?"; document.getElementById('d3').innerText="?"; this.updateUI(); }
