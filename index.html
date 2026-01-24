@@ -23,295 +23,319 @@
             overflow: hidden;
         }
 
-        /* DÒNG CHỮ CHÚC MỪNG CHẠY NGANG */
         #win-marquee {
             position: fixed; top: 100px; width: 100%; overflow: hidden; white-space: nowrap;
-            background: rgba(0,0,0,0.6); border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold);
-            padding: 5px 0; z-index: 500; display: none;
+            background: rgba(0,0,0,0.8); border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold);
+            padding: 8px 0; z-index: 500; display: none;
         }
-        .marquee-text { display: inline-block; padding-left: 100%; font-weight: 900; font-size: 20px; color: var(--gold); animation: marquee 15s linear infinite; }
+        .marquee-text { display: inline-block; padding-left: 100%; font-weight: 900; font-size: 22px; color: var(--gold); animation: marquee 15s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        .win-blink { animation: blinkRed 0.4s infinite !important; border: 3px solid #ff0000 !important; box-shadow: 0 0 50px #ff0000 !important; z-index: 100; }
-        @keyframes blinkRed { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(2.5); transform: scale(1.02); } }
-
         .container { display: flex; gap: 10px; width: 100vw; height: 100vh; padding: 8px; max-width: 1550px; }
-        .side-col-chat { flex: 0 0 380px; display: flex; flex-direction: column; gap: 10px; }
+        .side-col-chat { flex: 0 0 350px; display: flex; flex-direction: column; gap: 10px; }
         .side-col-bank { flex: 0 0 260px; display: flex; flex-direction: column; gap: 10px; }
         .main-col { flex: 1; display: flex; flex-direction: column; gap: 10px; }
 
         .glass-panel { background: var(--glass); border: 1.5px solid rgba(255, 204, 0, 0.2); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative; }
 
-        .chat-box { flex: 1; overflow-y: auto; font-size: 15px; scroll-behavior: smooth; display: flex; flex-direction: column; gap: 12px; padding: 10px; }
-        .chat-msg { animation: slideUp 0.3s ease; padding: 12px; border-radius: 15px; background: rgba(255,255,255,0.07); border-left: 5px solid var(--gold); }
-        .chat-user { font-weight: 900; color: var(--gold); font-size: 13px; margin-bottom: 4px; display: block; }
+        .chat-box { flex: 1; overflow-y: auto; font-size: 14px; display: flex; flex-direction: column; gap: 10px; padding: 5px; }
+        .chat-msg { padding: 10px; border-radius: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid var(--gold); }
+        .chat-user { font-weight: 900; color: var(--gold); margin-bottom: 2px; display: block; }
         
-        .chat-input-area { display: flex; gap: 5px; margin-top: 10px; background: #000; padding: 8px; border-radius: 10px; border: 1px solid #333; }
+        .chat-input-area { display: flex; gap: 5px; margin-top: 10px; background: #111; padding: 8px; border-radius: 10px; }
         #chat-input { flex: 1; background: transparent; border: none; color: #fff; outline: none; }
 
         .jp-box { background: linear-gradient(180deg, #900, #300); border: 2px solid var(--gold); border-radius: 12px; padding: 10px; text-align: center; }
-        .jp-value { font-size: 45px; color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 20px #f00; }
+        .jp-value { font-size: 40px; color: #fff; font-family: 'Courier New', monospace; font-weight: bold; text-shadow: 0 0 15px #f00; }
 
-        #timer { font-size: 80px; font-weight: 900; color: #fff; text-shadow: 0 0 35px var(--gold); text-align: center; margin: -5px 0; }
+        #timer { font-size: 70px; font-weight: 900; color: #fff; text-shadow: 0 0 30px var(--gold); text-align: center; margin: 10px 0; }
         
-        .bowl-wrap { width: 220px; height: 220px; aspect-ratio: 1/1; margin: 0 auto; background: #000; border-radius: 50%; border: 10px solid #222; position: relative; display: flex; justify-content: center; align-items: center; }
-        .lid { position: absolute; width: 102%; height: 102%; background: radial-gradient(circle at 35% 35%, #444, #000); border-radius: 50%; z-index: 10; cursor: pointer; transition: 0.7s; border: 1px solid #333; }
-        .lid.open { transform: translate(140%, -100%) rotate(40deg); opacity: 0; }
-        #open-text { display: none; position: absolute; z-index: 15; font-size: 24px; font-weight: 900; color: #fff; background: var(--gold); padding: 12px 30px; border-radius: 50px; animation: pulse 0.6s infinite; }
+        .bowl-wrap { width: 200px; height: 200px; margin: 0 auto; background: #111; border-radius: 50%; border: 8px solid #222; position: relative; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .lid { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 35% 35%, #333, #000); border-radius: 50%; z-index: 20; cursor: pointer; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #444; }
+        .lid.open { transform: translate(120%, -80%) rotate(45deg); opacity: 0; pointer-events: none; }
 
-        .dice { width: 52px; height: 52px; background: #fff; border-radius: 12px; color: #000; font-size: 34px; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 0 5px; box-shadow: 4px 4px 0 #999; }
+        .dice { width: 45px; height: 45px; background: #fff; border-radius: 8px; color: #000; font-size: 30px; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 0 4px; box-shadow: 3px 3px 0 #999; z-index: 5; }
 
-        .bet-area { display: flex; gap: 15px; margin-top: 5px; }
-        .bet-box { flex: 1; background: rgba(0,0,0,0.7); padding: 20px; border-radius: 18px; border: 3px solid #333; cursor: pointer; text-align: center; transition: 0.2s; }
+        .bet-area { display: flex; gap: 15px; margin-top: 10px; }
+        .bet-box { flex: 1; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px; border: 2px solid #333; cursor: pointer; text-align: center; transition: 0.2s; }
         .bet-box.selected { border-color: var(--gold); background: rgba(255, 204, 0, 0.1); }
-        .user-bet-val { color: #fff !important; font-size: 30px; font-weight: 900; text-shadow: 0 0 15px var(--gold); margin: 5px 0; }
+        .user-bet-val { color: #fff; font-size: 26px; font-weight: 900; text-shadow: 0 0 10px var(--gold); margin: 5px 0; }
 
-        .chart-btn { position: absolute; bottom: 15px; right: 15px; background: linear-gradient(180deg, #b8860b, #44332a); border: 2px solid #fff; padding: 12px 30px; border-radius: 12px; color: #fff; font-size: 18px; cursor: pointer; font-weight: 900; box-shadow: 0 5px 15px #000; }
-        #chart-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3000; width: 95%; max-width: 1000px; background: #0a0a0c; border: 3px solid var(--gold); border-radius: 25px; padding: 30px; box-shadow: 0 0 150px #000; }
+        .chip-row { display: flex; justify-content: center; gap: 6px; margin-top: 15px; }
+        .chip { width: 75px; height: 50px; background: var(--chip-bg); border: 2px solid var(--chip-border); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-weight: 900; color: #fbc531; cursor: pointer; }
+        .chip:active { transform: scale(0.95); }
 
-        .chip-row { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
-        .chip { width: 80px; height: 55px; background: var(--chip-bg); border: 2.5px solid var(--chip-border); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: 900; color: #fbc531; font-size: 17px; cursor: pointer; }
-        .chip:active { transform: scale(0.9); }
-
-        .roadmap { background: #000; border: 1px solid #333; border-radius: 12px; height: 110px; display: grid; grid-template-rows: repeat(6, 1fr); grid-auto-flow: column; gap: 3px; padding: 8px; overflow-x: auto; }
-        .dot { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset -3px -3px 6px rgba(0,0,0,0.5); }
+        .roadmap { background: #000; border: 1px solid #333; border-radius: 10px; height: 100px; display: grid; grid-template-rows: repeat(6, 1fr); grid-auto-flow: column; gap: 2px; padding: 5px; overflow-x: auto; }
+        .dot { width: 14px; height: 14px; border-radius: 50%; }
         .dot.tai { background: radial-gradient(circle at 30% 30%, #fff, var(--tai), #860); }
         .dot.xiu { background: radial-gradient(circle at 30% 30%, #fff, var(--xiu), #048); }
 
-        #balance { color: var(--win); font-size: 30px; font-weight: bold; }
-        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 16px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; font-size: 20px; }
-        .settings-btn { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--gold); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; box-shadow: 0 0 15px var(--gold); }
+        #balance { color: var(--gold); font-size: 28px; font-weight: bold; }
+        .btn-dep { background: linear-gradient(180deg, #f1c40f, #d35400); color: #fff; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; font-size: 18px; }
+        
+        .win-blink { animation: blinkRed 0.4s infinite; border-color: #ff0000 !important; }
+        @keyframes blinkRed { 50% { opacity: 0.5; transform: scale(1.02); } }
+        
+        #chart-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3000; width: 90%; max-width: 900px; background: #0a0a0c; border: 2px solid var(--gold); border-radius: 20px; padding: 20px; }
+        .chart-btn { background: #222; border: 1px solid var(--gold); padding: 10px 20px; border-radius: 10px; color: #fff; cursor: pointer; margin-top: 10px; width: 100%; }
     </style>
 </head>
 <body>
 
-<div id="win-marquee">
-    <div class="marquee-text" id="marquee-content">CHÚC MỪNG NGƯỜI CHƠI HUY_VIP ĐÃ NỔ HŨ +5,000,000,000 VNĐ !!!</div>
-</div>
-
-<button class="settings-btn" onclick="game.toggleSettings()">⚙️</button>
-<div id="settings-modal" style="display:none; position:fixed; top:80px; right:20px; z-index:2000; width:220px; background:#111; border:2px solid var(--gold); border-radius:15px; padding:15px;">
-    <h4 style="text-align:center; color:var(--gold); margin-bottom:10px;">CÀI ĐẶT</h4>
-    <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Nhạc nền</span><input type="checkbox" id="bg-music-toggle" onchange="game.updateAudio()"></div>
-    <div style="display:flex; justify-content:space-between;"><span>Hiệu ứng</span><input type="checkbox" id="sfx-toggle" checked onchange="game.updateAudio()"></div>
-</div>
+<div id="win-marquee"><div class="marquee-text" id="marquee-content"></div></div>
 
 <div id="chart-modal">
     <div style="display:flex; justify-content:space-between; color:var(--gold); margin-bottom:15px;">
-        <h2 style="font-size:28px;">📊 SOI CẦU MD5 TỐI GIẢN</h2>
-        <b onclick="game.toggleChart()" style="cursor:pointer; font-size:40px;">&times;</b>
+        <h3>BIỂU ĐỒ MD5</h3><b onclick="game.toggleChart()" style="cursor:pointer; font-size:30px;">&times;</b>
     </div>
-    <div style="background:#111; padding:20px; border-radius:15px;"><canvas id="md5Chart" height="220"></canvas></div>
-    <div style="background:#111; padding:15px; border-radius:15px; margin-top:15px;"><canvas id="diceChart" height="150"></canvas></div>
+    <canvas id="md5Chart" height="200"></canvas>
 </div>
 
-<audio id="m-bg" loop src="https://files.catbox.moe/v4cqzx.mp4"></audio>
 <audio id="s-chip" src="https://files.catbox.moe/r2zy05.mp4"></audio>
-<audio id="s-dice" loop src="https://files.catbox.moe/og6vqg.mp4"></audio>
+<audio id="s-dice" src="https://files.catbox.moe/og6vqg.mp4"></audio>
 <audio id="s-win" src="https://files.catbox.moe/vlwekr.mp4"></audio>
-<audio id="s-jp" src="https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3"></audio>
 
 <div class="container">
     <div class="side-col-chat glass-panel">
-        <h3 style="color:var(--gold); font-size:18px; margin-bottom:12px; text-align:center;">💬 CHAT VIP</h3>
+        <h3 style="color:var(--gold); text-align:center;">💬 KHU VỰC CHAT</h3>
         <div class="chat-box" id="chat-box"></div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." onkeypress="if(event.key==='Enter') game.sendRealChat()">
-            <button onclick="game.sendRealChat()" style="background:var(--gold); border:none; padding:5px 12px; border-radius:5px; font-weight:bold; cursor:pointer;">GỬI</button>
+            <button onclick="game.sendRealChat()" style="background:var(--gold); border:none; padding:5px 10px; border-radius:5px; font-weight:bold;">GỬI</button>
         </div>
     </div>
 
     <div class="main-col glass-panel">
-        <div style="display:flex; justify-content:space-between; font-size:14px; color:rgba(255,255,255,0.5); font-weight: 900;">
-            <span id="session-id">PHIÊN: #44230881</span><span>🔥 JACKPOT 🔥</span>
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#666;">
+            <span id="session-id">PHIÊN: #--</span><span>HŨ THƯỞNG</span>
         </div>
         <div class="jp-box"><div class="jp-value" id="jp-val">5,000,000,000</div></div>
+        
         <div id="timer">--</div>
         
         <div class="bowl-wrap">
-            <div id="open-text">MỞ BÁT</div>
-            <div class="lid" id="lid" onclick="game.openLid()"></div>
-            <div id="d1" class="dice">?</div><div id="d2" class="dice">?</div><div id="d3" class="dice">?</div>
+            <div class="lid" id="lid" onclick="game.manualOpen()"></div>
+            <div id="d1" class="dice">?</div>
+            <div id="d2" class="dice">?</div>
+            <div id="d3" class="dice">?</div>
         </div>
         
         <div class="bet-area">
-            <div class="bet-box selected" id="box-tai" onclick="game.selectSide('TAI')">
-                <h2 style="color:var(--tai); font-size:26px; font-weight:900;">TÀI</h2><div id="u-tai" class="user-bet-val">0</div>
-                <div style="font-size:12px; color:#666">Sảnh: <span id="t-tai" style="color:var(--gold)">0</span></div>
+            <div class="bet-box" id="box-tai" onclick="game.selectSide('TAI')">
+                <h2 style="color:var(--tai);">TÀI</h2>
+                <div id="u-tai" class="user-bet-val">0</div>
+                <div style="font-size:11px; color:#555">Tổng: <span id="t-tai" style="color:#aaa">0</span></div>
             </div>
             <div class="bet-box" id="box-xiu" onclick="game.selectSide('XIU')">
-                <h2 style="color:var(--xiu); font-size:26px; font-weight:900;">XỈU</h2><div id="u-xiu" class="user-bet-val">0</div>
-                <div style="font-size:12px; color:#666">Sảnh: <span id="t-xiu" style="color:var(--gold)">0</span></div>
+                <h2 style="color:var(--xiu);">XỈU</h2>
+                <div id="u-xiu" class="user-bet-val">0</div>
+                <div style="font-size:11px; color:#555">Tổng: <span id="t-xiu" style="color:#aaa">0</span></div>
             </div>
         </div>
+
         <div class="chip-row">
-            <div class="chip" onclick="game.addBet(5000000)">5M</div>
             <div class="chip" onclick="game.addBet(10000000)">10M</div>
             <div class="chip" onclick="game.addBet(50000000)">50M</div>
             <div class="chip" onclick="game.addBet(100000000)">100M</div>
-            <div class="chip" onclick="game.allIn()" style="background:var(--win); color:#fff; border-color:#fff;">ALL IN</div>
-            <button onclick="game.clearBet()" style="background:#222; color:#aaa; border:none; border-radius:10px; padding:0 15px; cursor:pointer; font-weight:bold;">XÓA</button>
+            <div class="chip" onclick="game.allIn()" style="background:var(--win); color:#fff;">ALL IN</div>
+            <button onclick="game.clearBet()" style="background:#222; color:#777; border:none; padding:0 10px; border-radius:8px;">XÓA</button>
         </div>
-        <button class="chart-btn" onclick="game.toggleChart()">📊 SOI CẦU MD5</button>
+        <button class="chart-btn" onclick="game.toggleChart()">📊 SOI CẦU CHI TIẾT</button>
     </div>
 
     <div class="side-col-bank glass-panel">
-        <div>
-            <h3 style="color:var(--gold); font-size:18px; margin-bottom:5px;">🏦 NGÂN HÀNG</h3>
-            <b id="balance">0</b><div id="user-ip-display" style="font-size:11px; color:#555; margin-bottom:8px;">...</div>
-            <input type="number" id="inp-dep" placeholder="Nạp tiền..." style="width:100%; padding:14px; background:#000; border:1.5px solid #333; color:#fff; border-radius:12px; text-align:center; font-weight:bold;">
-            <button id="btn-dep" class="btn-dep" onclick="game.deposit()">XÁC NHẬN NẠP</button>
-        </div>
-        <div style="flex:1; margin-top:20px; display:flex; flex-direction:column">
-            <h3 style="color:var(--gold); font-size:16px; margin-bottom:8px;">📊 SOI CẦU</h3>
+        <h3 style="color:var(--gold);">🏦 VÍ TIỀN</h3>
+        <div id="balance">400,000,000</div>
+        <input type="number" id="inp-dep" placeholder="Số tiền nạp..." style="width:100%; padding:12px; margin-top:10px; background:#000; border:1px solid #333; color:#fff; border-radius:8px;">
+        <button class="btn-dep" onclick="game.deposit()">NẠP TIỀN</button>
+        
+        <div style="margin-top:20px;">
+            <h4 style="color:var(--gold); margin-bottom:5px;">LỊCH SỬ CẦU</h4>
             <div class="roadmap" id="roadmap"></div>
         </div>
     </div>
 </div>
 
 <script>
-class CasinoMaster {
+class CasinoGame {
     constructor() {
-        this.balance = parseInt(localStorage.getItem('casino_balance')) || 400000000;
-        this.jackpot = 5125000000;
-        this.state = 'BET'; this.side = null;
-        this.bT = 0; this.bX = 0; this.fT = 0; this.fX = 0;
-        this.roundDur = 40; this.userIP = "Unknown";
-        this.history = []; this.baseSession = 44230881;
-        this.teleToken = "8537807711:AAGhZcmt5-54vFRoY4OxGT06XvRmkkwvutg"; 
-        this.teleChatId = "-1003672099430";
-        this.init(); this.getIP(); this.runLiveBets(); this.runJackpotTimer(); this.startFakeChatSystem();
+        this.balance = parseInt(localStorage.getItem('casino_balance')) || 500000000;
+        this.state = 'BET'; // BET, WAIT, RESULT
+        this.timer = 0;
+        this.side = null;
+        this.bT = 0; this.bX = 0; // Tiền người chơi
+        this.fT = 0; this.fX = 0; // Tiền ảo
+        this.history = [];
+        this.roundDur = 45;
+        this.currentRes = null;
+        this.init();
     }
 
-    async getIP() { try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); this.userIP = d.ip; document.getElementById('user-ip-display').innerText = "IP: " + this.userIP; } catch (e) { document.getElementById('user-ip-display').innerText = "IP: 127.0.0.1"; } }
-    saveData() { localStorage.setItem('casino_balance', this.balance); }
-    toggleSettings() { const m = document.getElementById('settings-modal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
-    updateAudio() { const bgm = document.getElementById('m-bg'); if(document.getElementById('bg-music-toggle').checked) { bgm.volume=0.3; bgm.play().catch(()=>{}); } else bgm.pause(); }
-    playSound(id, l=false) { if(document.getElementById('sfx-toggle').checked){ const e=document.getElementById(id); if(e){ e.currentTime=0; e.loop=l; e.play().catch(()=>{}); } } }
-
-    getSeedResult(s) {
-        const rand = (Math.abs(Math.sin(s) * 10000)) % 1;
-        const isJp = rand < 0.05; 
-        let d = isJp ? (rand < 0.025 ? [1,1,1] : [6,6,6]) : [Math.floor((rand*13)%6)+1, Math.floor((rand*131)%6)+1, Math.floor((rand*1313)%6)+1];
-        if(!isJp && d[0]===d[1] && d[1]===d[2]) d[0] = d[0]===6?1:d[0]+1;
-        const sum = d[0]+d[1]+d[2];
-        const win = sum >= 11 ? 'TAI' : 'XIU';
-        const md5 = CryptoJS.MD5(`PHIEN_${s}:${d.join('-')}:${win}`).toString();
-        return { s, d, sum, win, isJp, md5 };
+    init() {
+        setInterval(() => this.tick(), 1000);
+        setInterval(() => this.fakeLiveBet(), 500);
+        this.updateUI();
+        this.logChat("Hệ thống", "Chào mừng Boss quay trở lại sảnh VIP!", "cyan");
     }
 
-    init() { 
-        const currentSession = this.baseSession + Math.floor(Date.now()/1000/this.roundDur);
-        for(let i=30; i>0; i--) { this.history.push(this.getSeedResult(currentSession - i)); }
-        setInterval(() => this.loop(), 1000); this.updateUI(); 
-    }
-    
-    loop() {
+    tick() {
         const now = Math.floor(Date.now() / 1000);
         const cycle = now % this.roundDur;
-        const session = this.baseSession + Math.floor(now / this.roundDur);
+        const session = 4423000 + Math.floor(now / this.roundDur);
         document.getElementById('session-id').innerText = "PHIÊN: #" + session;
 
-        if (cycle < 25) { if (this.state !== 'BET') this.resetRound(); this.state = 'BET'; this.timer = 25 - cycle; document.getElementById('timer').innerText = this.timer; }
-        else if (cycle < 35) { if (this.state === 'BET') this.lockAndBalance(session); if (cycle === 34 && !document.getElementById('lid').classList.contains('open')) this.openLid(); document.getElementById('timer').innerText = "!"; }
-        else { this.state = 'RESULT'; document.getElementById('timer').innerText = "WAIT"; }
-        this.syncHistory();
-    }
-
-    lockAndBalance(s) {
-        this.state = 'WAIT'; document.getElementById('lid').classList.add('shake-anim'); document.getElementById('open-text').style.display = 'block'; this.playSound('s-dice', true);
-        const totalT = this.fT + this.bT; const totalX = this.fX + this.bX;
-        const diff = Math.abs(totalT - totalX);
-        const userBetTotal = this.bT + this.bX;
-        if (userBetTotal >= 5000000000) { this.logChat("Hệ thống", "Đơn cược VIP đã xác nhận. Không hỗ trợ hoàn trả.", "orange"); }
-        else {
-            if (this.bT > 0 && totalT > totalX) { const ref = Math.min(this.bT, diff * 0.2); this.balance += ref; this.bT -= ref; }
-            else if (this.bX > 0 && totalX > totalT) { const ref = Math.min(this.bX, diff * 0.2); this.balance += ref; this.bX -= ref; }
-        }
-        this.currentRes = this.getSeedResult(s); this.updateUI();
-    }
-
-    async sendTeleResult(s, r, winAmtReal = 0) {
-        let winText = winAmtReal > 0 ? `\n💰 THẮNG: +${winAmtReal.toLocaleString()} VNĐ ✅` : (this.side ? `\n💸 THUA: Trừ tiền cược ❌` : `\n👀 KHÔNG CƯỢC`);
-        const msg = `🎰 PHIÊN #${s}\n🎲 ${r.d.join(' - ')} -> ${r.win}\n🎯 Đặt: ${this.side || 'KHÔNG'}${winText}\n\nMD5: ${r.md5}\n💰 Số dư: ${this.balance.toLocaleString()}\n🌐 IP: ${this.userIP}`;
-        fetch(`https://api.telegram.org/bot${this.teleToken}/sendMessage?chat_id=${this.teleChatId}&text=${encodeURIComponent(msg)}`).catch(()=>{});
-    }
-
-    payout() {
-        const r = this.currentRes;
-        document.getElementById('d1').innerText = r.d[0]; document.getElementById('d2').innerText = r.d[1]; document.getElementById('d3').innerText = r.d[2];
-        let userWinReal = 0;
-
-        if(r.isJp) {
-            this.playSound('s-jp');
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            const totalInSide = (r.win === 'TAI') ? (this.fT + this.bT) : (this.fX + this.bX);
-            const userBet = (r.win === 'TAI') ? this.bT : this.bX;
-            if(userBet > 0) { 
-                userWinReal = Math.floor((userBet / totalInSide) * this.jackpot); this.balance += userWinReal; 
-                this.showMarquee(`CHÚC MỪNG BẠN ĐÃ NỔ HŨ SIÊU CẤP +${userWinReal.toLocaleString()} VNĐ !!!`);
-            }
-            this.jackpot = 100000000; document.getElementById('jp-val').innerText = "0";
+        if (cycle < 30) {
+            if (this.state !== 'BET') this.startNewRound();
+            this.timer = 30 - cycle;
+            document.getElementById('timer').innerText = this.timer;
+            document.getElementById('timer').style.color = this.timer <= 5 ? "red" : "white";
+        } else if (cycle < 40) {
+            if (this.state === 'BET') this.lockBet(session);
+            document.getElementById('timer').innerText = "ĐANG NẶN";
         } else {
-            if (this.side === r.win) {
-                const bet = (this.side === 'TAI' ? this.bT : this.bX);
-                userWinReal = Math.floor(bet * 1.9); // ĂN 1.9
-                this.balance += userWinReal; this.playSound('s-win');
-                document.getElementById(this.side === 'TAI' ? 'box-tai' : 'box-xiu').classList.add('win-blink');
-                if(bet >= 100000000) this.showMarquee(`CHÚC MỪNG BẠN ĐÃ THẮNG LỚN +${userWinReal.toLocaleString()} VNĐ !!!`);
-            }
+            if (this.state !== 'RESULT') this.showResult();
+            document.getElementById('timer').innerText = "CHỜ PHIÊN";
         }
-        this.sendTeleResult(Math.floor(Date.now()/1000/this.roundDur), r, userWinReal);
-        this.saveData(); this.updateUI();
     }
 
-    showMarquee(text) {
-        const marquee = document.getElementById('win-marquee');
-        document.getElementById('marquee-content').innerText = text;
-        marquee.style.display = 'block';
-        setTimeout(() => marquee.style.display = 'none', 15000);
+    startNewRound() {
+        this.state = 'BET';
+        this.side = null; this.bT = 0; this.bX = 0; this.fT = 0; this.fX = 0;
+        document.getElementById('lid').classList.remove('open');
+        document.querySelectorAll('.bet-box').forEach(b => b.classList.remove('win-blink', 'selected'));
+        document.querySelectorAll('.dice').forEach(d => d.innerText = "?");
+        this.updateUI();
+    }
+
+    lockBet(s) {
+        this.state = 'WAIT';
+        this.playSound('s-dice');
+        // Tạo kết quả MD5 ảo
+        const d = [Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1];
+        const sum = d[0]+d[1]+d[2];
+        this.currentRes = { d, sum, win: sum >= 11 ? 'TAI' : 'XIU', s };
+    }
+
+    manualOpen() {
+        if (this.state === 'WAIT') {
+            document.getElementById('lid').classList.add('open');
+            this.showDiceResult();
+        }
+    }
+
+    showDiceResult() {
+        const r = this.currentRes;
+        document.getElementById('d1').innerText = r.d[0];
+        document.getElementById('d2').innerText = r.d[1];
+        document.getElementById('d3').innerText = r.d[2];
+        
+        this.state = 'RESULT';
+        this.history.push(r);
+        this.updateRoadmap();
+
+        let winAmt = 0;
+        if (this.side === r.win) {
+            winAmt = (this.side === 'TAI' ? this.bT : this.bX) * 1.95;
+            this.balance += winAmt;
+            this.playSound('s-win');
+            document.getElementById(r.win === 'TAI' ? 'box-tai' : 'box-xiu').classList.add('win-blink');
+            if(winAmt > 0) this.showMarquee(`CHÚC MỪNG BẠN ĐÃ THẮNG +${Math.floor(winAmt).toLocaleString()} VNĐ`);
+        }
+        localStorage.setItem('casino_balance', this.balance);
+        this.updateUI();
+    }
+
+    showResult() {
+        if(!document.getElementById('lid').classList.contains('open')) {
+            this.manualOpen();
+        }
+    }
+
+    selectSide(s) {
+        if (this.state === 'BET') {
+            this.side = s;
+            document.querySelectorAll('.bet-box').forEach(b => b.classList.remove('selected'));
+            document.getElementById(s === 'TAI' ? 'box-tai' : 'box-xiu').classList.add('selected');
+        }
+    }
+
+    addBet(m) {
+        if (this.state === 'BET' && this.side && this.balance >= m) {
+            this.balance -= m;
+            if (this.side === 'TAI') this.bT += m; else this.bX += m;
+            this.playSound('s-chip');
+            this.updateUI();
+        } else if (!this.side) {
+            alert("Vui lòng chọn TÀI hoặc XỈU trước!");
+        }
+    }
+
+    allIn() { this.addBet(this.balance); }
+    clearBet() { if(this.state==='BET'){ this.balance += (this.bT + this.bX); this.bT=0; this.bX=0; this.updateUI(); } }
+
+    deposit() {
+        let val = parseInt(document.getElementById('inp-dep').value);
+        if(val > 0) { this.balance += val; this.updateUI(); alert("Nạp thành công!"); }
+    }
+
+    updateUI() {
+        document.getElementById('balance').innerText = Math.floor(this.balance).toLocaleString();
+        document.getElementById('u-tai').innerText = this.bT.toLocaleString();
+        document.getElementById('u-xiu').innerText = this.bX.toLocaleString();
+        document.getElementById('t-tai').innerText = (this.fT + this.bT).toLocaleString();
+        document.getElementById('t-xiu').innerText = (this.fX + this.bX).toLocaleString();
+    }
+
+    updateRoadmap() {
+        let html = "";
+        this.history.slice(-30).forEach(h => {
+            html += `<div class="dot ${h.win.toLowerCase()}"></div>`;
+        });
+        document.getElementById('roadmap').innerHTML = html;
+    }
+
+    fakeLiveBet() {
+        if (this.state === 'BET') {
+            this.fT += Math.floor(Math.random() * 20000000);
+            this.fX += Math.floor(Math.random() * 20000000);
+            this.updateUI();
+        }
     }
 
     sendRealChat() {
-        const input = document.getElementById('chat-input');
-        if(input.value.trim() !== "") { this.logChat("BẠN", input.value, "#00ff00"); input.value = ""; }
+        let inp = document.getElementById('chat-input');
+        if(inp.value.trim()){
+            this.logChat("BẠN", inp.value, "#00ff00");
+            inp.value = "";
+        }
     }
 
     logChat(u, m, c) {
-        const d = document.createElement('div'); d.className='chat-msg';
+        let box = document.getElementById('chat-box');
+        let d = document.createElement('div'); d.className='chat-msg';
         d.innerHTML = `<span class="chat-user" style="color:${c||'var(--gold)'}">${u}:</span> ${m}`;
-        const b = document.getElementById('chat-box'); b.appendChild(d);
-        if(b.children.length>50) b.removeChild(b.firstChild); b.scrollTop=b.scrollHeight;
+        box.appendChild(d); box.scrollTop = box.scrollHeight;
     }
 
-    startFakeChatSystem() {
-        const names = ["Huy VIP", "Hoàng Boss", "Lan Pro", "Sát Thủ", "Thiếu Gia", "Công Tử"];
-        const ms = { bet: ["Tài chắc luôn ae", "Vả mạnh Xỉu đi", "Nạp 500 củ nặn cho phê"], wait: ["Mở đi admin", "Bát rung mạnh r", "Nặn đi ae ơi"], res: ["Bịp vcl", "Húp rồi thơm quá", "Lại giàu rồi"] };
-        setInterval(() => { if (Math.random() > 0.5) { let p = (this.state==='BET'?ms.bet:(this.state==='RESULT'?ms.res:ms.wait)); this.logChat(names[Math.floor(Math.random()*names.length)], p[Math.floor(Math.random()*p.length)]); } }, 2500);
+    showMarquee(txt) {
+        let m = document.getElementById('win-marquee');
+        document.getElementById('marquee-content').innerText = txt;
+        m.style.display = 'block';
+        setTimeout(() => m.style.display = 'none', 10000);
     }
 
-    openLid() { if(this.state === 'WAIT') { document.getElementById('lid').classList.add('open'); this.state='ANIM'; let count=0; let si=setInterval(()=>{ document.getElementById('d1').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d2').innerText=Math.floor(Math.random()*6)+1; document.getElementById('d3').innerText=Math.floor(Math.random()*6)+1; document.querySelectorAll('.dice').forEach(d => d.style.transform = `rotate(${Math.random()*20-10}deg)`); if(++count>15){ clearInterval(si); document.querySelectorAll('.dice').forEach(d => d.style.transform = `rotate(0deg)`); this.payout(); } },80); } }
-    toggleChart() { const m = document.getElementById('chart-modal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; if(m.style.display === 'block') this.drawCharts(); }
-    drawCharts() {
-        const last20 = this.history.slice(-20); const labels = last20.map(h => h.s.toString().slice(-4));
-        if(this.md5Chart) this.md5Chart.destroy(); if(this.diceChart) this.diceChart.destroy();
-        const ctx1 = document.getElementById('md5Chart').getContext('2d');
-        this.md5Chart = new Chart(ctx1, { type: 'line', data: { labels, datasets: [{ data: last20.map(h=>h.sum), borderColor: '#ffcc00', borderWidth: 8, tension: 0.1, pointRadius: 10, pointBackgroundColor: '#fff', fill: true, backgroundColor: 'rgba(255, 204, 0, 0.05)' }]}, options: { scales: { y: { min: 3, max: 18, grid: { display: false }, ticks: { color: '#fff', font: { size: 18, weight: 'bold' } } }, x: { grid: { display: false }, ticks: { color: '#fff', font: { size: 14 } } } }, plugins: { legend: { display: false } } } });
-        const ctx2 = document.getElementById('diceChart').getContext('2d');
-        this.diceChart = new Chart(ctx2, { type: 'line', data: { labels, datasets: [{ label: 'V1', data: last20.map(h=>h.d[0]), borderColor: '#f0f', tension: 0.1, pointRadius: 4 }, { label: 'V2', data: last20.map(h=>h.d[1]), borderColor: '#ff0', tension: 0.1, pointRadius: 4 }, { label: 'V3', data: last20.map(h=>h.d[2]), borderColor: '#0ff', tension: 0.1, pointRadius: 4 }]}, options: { scales: { y: { min: 1, max: 6, grid: { color: '#222' }, ticks: { color: '#888' } }, x: { grid: { display: false }, ticks: { color: '#888' } } }, plugins: { legend: { labels: { color: '#888' } } } } });
+    playSound(id) {
+        let s = document.getElementById(id);
+        if(s) { s.currentTime = 0; s.play().catch(()=>{}); }
     }
-    deposit() { let a = parseInt(document.getElementById('inp-dep').value); if(a>0){ this.balance += Math.min(a, 10000000000); this.saveData(); this.updateUI(); fetch(`https://api.telegram.org/bot${this.teleToken}/sendMessage?chat_id=${this.teleChatId}&text=${encodeURIComponent('🔔 NẠP TIỀN: +'+a.toLocaleString())}`).catch(()=>{}); } }
-    addBet(m) { if(this.timer > 3 && this.side !== null && this.balance >= m) { this.playSound('s-chip'); if(this.side === 'TAI') this.bT += m; else this.bX += m; this.balance -= m; this.updateUI(); } }
-    updateUI() { document.getElementById('balance').innerText = this.balance.toLocaleString(); document.getElementById('u-tai').innerText = this.bT.toLocaleString(); document.getElementById('u-xiu').innerText = this.bX.toLocaleString(); document.getElementById('box-tai').classList.toggle('selected', this.side==='TAI'); document.getElementById('box-xiu').classList.toggle('selected', this.side==='XIU'); if(this.bT>0) document.getElementById('box-xiu').classList.add('disabled-side'); if(this.bX>0) document.getElementById('box-tai').classList.add('disabled-side'); }
-    resetRound() { this.bT=0; this.bX=0; this.fT=0; this.fX=0; this.side=null; document.getElementById('lid').classList.remove('open'); document.getElementById('box-tai').classList.remove('disabled-side', 'win-blink'); document.getElementById('box-xiu').classList.remove('disabled-side', 'win-blink'); document.getElementById('d1').innerText="?"; document.getElementById('d2').innerText="?"; document.getElementById('d3').innerText="?"; this.updateUI(); }
-    syncHistory() { let h=""; this.history.slice(-30).reverse().forEach(r => { h+=`<div class="dot ${r.win.toLowerCase()}"></div>`; }); document.getElementById('roadmap').innerHTML=h; }
-    allIn() { this.addBet(this.balance); }
-    clearBet() { if(this.state==='BET'){ this.balance+=(this.bT+this.bX); this.bT=0; this.bX=0; this.side=null; this.updateUI(); }}
-    selectSide(s) { if(this.state==='BET'&&(this.side===null||this.side===s)){ this.side=s; this.updateUI(); }}
-    runJackpotTimer() { setInterval(() => { if(this.jackpot > 0) this.jackpot += Math.floor(Math.random() * 5000); document.getElementById('jp-val').innerText = Math.floor(this.jackpot).toLocaleString(); }, 150); }
-    runLiveBets() { setInterval(() => { if(this.state === 'BET') { this.fT += Math.floor(Math.random()*100000000); this.fX += Math.floor(Math.random()*100000000); document.getElementById('t-tai').innerText = (this.fT+this.bT).toLocaleString(); document.getElementById('t-xiu').innerText = (this.fX+this.bX).toLocaleString(); } }, 400); }
+
+    toggleChart() {
+        let m = document.getElementById('chart-modal');
+        m.style.display = m.style.display === 'block' ? 'none' : 'block';
+    }
 }
-const game = new CasinoMaster();
+
+const game = new CasinoGame();
 </script>
 </body>
 </html>
